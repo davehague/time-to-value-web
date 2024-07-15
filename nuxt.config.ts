@@ -30,7 +30,7 @@ export default defineNuxtConfig({
           sizes: "16x16",
           href: "/favicon/favicon-16x16.png",
         },
-        { rel: "manifest", href: "/site.webmanifest" },
+        { rel: "manifest", href: "/favicon/site.webmanifest" },
         { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5bbad5" },
       ],
     },
