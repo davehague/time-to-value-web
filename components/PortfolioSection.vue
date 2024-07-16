@@ -4,8 +4,12 @@
       <h2 class="text-3xl font-bold mb-8 text-center">Our Portfolio</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="product in products" :key="product.id" class="bg-white rounded-lg shadow-md p-6">
-          <img :src="product.logo" :alt="product.name" class="w-24 h-24 mx-auto mb-4">
-          <h3 class="text-xl font-semibold mb-2">{{ product.name }}</h3>
+          <NuxtLink :to="product.link">
+            <img :src="product.logo" :alt="product.name" class="w-24 h-24 mx-auto mb-4">
+          </NuxtLink>
+          <NuxtLink :to="product.link" class=" text-blue-900">
+            <h3 class="text-xl font-semibold mb-2">{{ product.name }}</h3>
+          </NuxtLink>
           <p class="text-gray-600">{{ product.description }}</p>
           <NuxtLink :to="product.link" class="mt-4 inline-block text-blue-500 hover:underline">
             Learn More
@@ -39,6 +43,5 @@ const products = [
     description: 'Prompt like a pro with no prior experience',
     link: 'https://www.promptblocks.app/',
   },
-  // Add more products as needed
 ];
 </script>
