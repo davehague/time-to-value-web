@@ -1,16 +1,16 @@
 <template>
-  <section id="content" class="py-20 bg-gradient-to-br from-gray-50 via-white to-brand-cream/30 relative overflow-hidden">
+  <section id="content" class="py-20 bg-gray-50 relative overflow-hidden">
     <!-- Background Elements -->
     <div class="absolute inset-0 opacity-10">
       <div class="absolute top-20 left-20 w-40 h-40">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 100 L100 20 L180 100 L100 180 Z" stroke="#2d6cdf" stroke-width="2" fill="none"/>
-          <circle cx="100" cy="100" r="30" stroke="#ff6b5d" stroke-width="1" fill="none"/>
+          <circle cx="100" cy="100" r="30" stroke="#2d6cdf" stroke-width="1" fill="none"/>
         </svg>
       </div>
       <div class="absolute bottom-20 right-20 w-32 h-32">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="50" y="50" width="100" height="100" stroke="#a6e3c6" stroke-width="2" fill="none" rx="20"/>
+          <rect x="50" y="50" width="100" height="100" stroke="#2d6cdf" stroke-width="2" fill="none" rx="20"/>
         </svg>
       </div>
     </div>
@@ -18,8 +18,8 @@
     <div class="container mx-auto px-6 relative z-10">
       <!-- Section Header -->
       <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 bg-brand-green/10 rounded-full text-brand-green font-medium mb-6">
-          <span class="w-2 h-2 bg-brand-green rounded-full mr-2"></span>
+        <div class="inline-flex items-center px-4 py-2 bg-gray-200 rounded-full text-gray-700 font-medium mb-6">
+          <span class="w-2 h-2 bg-gray-600 rounded-full mr-2"></span>
           Content & Education
         </div>
         <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
@@ -59,11 +59,11 @@
                 AI Agent Implementations
               </div>
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-blue rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                 Workflow Automation Guides
               </div>
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-blue rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                 Tool Reviews & Comparisons
               </div>
             </div>
@@ -75,11 +75,11 @@
         </div>
         
         <!-- Trend Analysis -->
-        <div class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-brand-coral/30 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-brand-coral/10 to-transparent rounded-bl-3xl"></div>
+        <div class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-300 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-gray-100 to-transparent rounded-bl-3xl"></div>
           
           <div class="relative z-10">
-            <div class="w-16 h-16 bg-gradient-to-br from-brand-coral to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
               </svg>
@@ -95,31 +95,31 @@
             
             <div class="space-y-3 mb-6">
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-coral rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-600 rounded-full mr-3"></span>
                 Market Analysis & Predictions
               </div>
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-coral rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                 Technology Deep Dives
               </div>
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-coral rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                 Strategic Opportunities
               </div>
             </div>
             
-            <div class="text-brand-coral font-inter font-semibold group-hover:text-red-600 transition-colors">
+            <div class="text-gray-600 font-inter font-semibold group-hover:text-gray-800 transition-colors">
               Read Latest Analysis →
             </div>
           </div>
         </div>
         
         <!-- Practical Guides -->
-        <div class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-brand-green/30 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-brand-green/10 to-transparent rounded-bl-3xl"></div>
+        <div class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-300 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-gray-100 to-transparent rounded-bl-3xl"></div>
           
           <div class="relative z-10">
-            <div class="w-16 h-16 bg-gradient-to-br from-brand-green to-green-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
               </svg>
@@ -135,20 +135,20 @@
             
             <div class="space-y-3 mb-6">
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-green rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-600 rounded-full mr-3"></span>
                 Implementation Frameworks
               </div>
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-green rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                 Best Practice Playbooks
               </div>
               <div class="flex items-center text-gray-600 text-sm">
-                <span class="w-2 h-2 bg-brand-green rounded-full mr-3"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                 ROI Optimization Tips
               </div>
             </div>
             
-            <div class="text-brand-green font-inter font-semibold group-hover:text-green-600 transition-colors">
+            <div class="text-gray-600 font-inter font-semibold group-hover:text-gray-800 transition-colors">
               Download Guides →
             </div>
           </div>
@@ -157,7 +157,7 @@
       </div>
       
       <!-- Content Preview Section -->
-      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 max-w-6xl mx-auto">
+      <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-200 max-w-6xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           
           <!-- Content Info -->
@@ -186,7 +186,7 @@
               </div>
               
               <div class="flex items-start">
-                <div class="w-6 h-6 bg-brand-coral rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                <div class="w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
@@ -198,7 +198,7 @@
               </div>
               
               <div class="flex items-start">
-                <div class="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                <div class="w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
@@ -211,7 +211,7 @@
             </div>
             
             <!-- Newsletter Signup -->
-            <div class="bg-gradient-to-r from-brand-blue/5 to-brand-coral/5 rounded-2xl p-6">
+            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200">
               <h4 class="font-inter font-semibold text-brand-dark mb-3">Stay Ahead of the Curve</h4>
               <div class="flex flex-col sm:flex-row gap-3">
                 <input 
@@ -219,7 +219,7 @@
                   placeholder="Enter your email" 
                   class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans"
                 >
-                <button class="bg-gradient-to-r from-brand-blue to-blue-600 text-white px-6 py-3 rounded-xl font-inter font-semibold hover:from-blue-600 hover:to-brand-blue transition-all duration-300 transform hover:scale-105">
+                <button class="bg-gradient-to-r from-brand-coral to-red-500 text-white px-6 py-3 rounded-xl font-inter font-semibold hover:from-red-500 hover:to-brand-coral transition-all duration-300 transform hover:scale-105">
                   Subscribe
                 </button>
               </div>
@@ -232,7 +232,7 @@
             <div class="bg-gradient-to-br from-brand-dark via-gray-800 to-brand-dark rounded-2xl p-8 text-white relative overflow-hidden">
               <!-- Decorative elements -->
               <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-blue/20 to-transparent rounded-bl-3xl"></div>
-              <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-brand-coral/20 to-transparent rounded-tr-3xl"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/10 to-transparent rounded-tr-3xl"></div>
               
               <div class="relative z-10">
                 <div class="text-4xl font-inter font-bold mb-4">5K+</div>
@@ -247,7 +247,7 @@
                     "This content cuts through all the AI hype and gives me exactly what I need to implement in my business."
                   </p>
                   <div class="flex items-center">
-                    <div class="w-8 h-8 bg-gradient-to-r from-brand-blue to-brand-coral rounded-full mr-3"></div>
+                    <div class="w-8 h-8 bg-gradient-to-r from-brand-blue to-blue-700 rounded-full mr-3"></div>
                     <div>
                       <div class="text-white font-opensans text-sm font-medium">Sarah Chen</div>
                       <div class="text-gray-400 text-xs">Small Business Owner</div>

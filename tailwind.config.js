@@ -12,11 +12,18 @@ module.exports = {
     extend: {
       colors: {
         brand: {
+          // Primary Colors (use most)
           blue: '#2d6cdf',
-          green: '#a6e3c6', 
-          coral: '#ff6b5d',
           dark: '#3d3d4e',
+
+          // Accent Colors (use sparingly)
+          coral: '#ff6b5d',
+
+          // Background Colors (very subtle)
           cream: '#f5e8d3',
+
+          // Legacy colors (minimize usage)
+          green: '#a6e3c6',
         }
       },
       fontFamily: {
@@ -24,7 +31,7 @@ module.exports = {
         'opensans': ['Open Sans', 'sans-serif'],
       },
       backgroundImage: {
-        'hero-pattern': "url('/hero-background.jpg')",
+        'hero-pattern': "url('/hero-background.png')",
       }
     },
   },

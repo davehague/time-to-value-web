@@ -1,9 +1,9 @@
 <template>
-  <section id="about" class="py-20 bg-gradient-to-br from-brand-cream via-white to-brand-green/5 relative">
+  <section id="about" class="py-20 bg-gray-50 relative">
     <!-- Background Elements -->
     <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute top-20 left-10 w-32 h-32 border border-brand-blue/10 rounded-full"></div>
-      <div class="absolute bottom-20 right-10 w-48 h-48 border border-brand-coral/10 rounded-full"></div>
+      <div class="absolute top-20 left-10 w-32 h-32 border border-gray-200 rounded-full"></div>
+      <div class="absolute bottom-20 right-10 w-48 h-48 border border-gray-200 rounded-full"></div>
     </div>
     
     <div class="container mx-auto px-6 relative z-10">
@@ -39,7 +39,7 @@
                 want to hear them over coffee.
               </p>
               
-              <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
                 <h4 class="font-inter font-semibold text-brand-dark mb-3">My Core Mantras:</h4>
                 <ul class="space-y-2 text-gray-600 font-opensans">
                   <li class="flex items-start">
@@ -47,11 +47,11 @@
                     Provide value to people, and always prioritize the customer experience
                   </li>
                   <li class="flex items-start">
-                    <span class="w-2 h-2 bg-brand-coral rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                     Get to the 20% that gets you 80% of the way there
                   </li>
                   <li class="flex items-start">
-                    <span class="w-2 h-2 bg-brand-green rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                     Skate to where the puck is going, not where it's been
                   </li>
                 </ul>
@@ -94,7 +94,7 @@
         </div>
         
         <!-- Business Model -->
-        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-200">
           <div class="text-center mb-12">
             <h3 class="text-3xl font-inter font-bold text-brand-dark mb-4">
               How I Help David Beat Goliath
@@ -109,7 +109,7 @@
             
             <!-- Content Creation -->
             <div class="text-center">
-              <div class="w-20 h-20 bg-gradient-to-br from-brand-green to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div class="w-20 h-20 bg-gradient-to-br from-brand-blue to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                 </svg>
@@ -128,7 +128,7 @@
             
             <!-- Consulting Services -->
             <div class="text-center">
-              <div class="w-20 h-20 bg-gradient-to-br from-brand-coral to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div class="w-20 h-20 bg-gradient-to-br from-gray-600 to-brand-dark rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
                 </svg>

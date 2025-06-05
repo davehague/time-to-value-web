@@ -1,7 +1,9 @@
 <template>
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-blue via-blue-600 to-blue-800">
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-pattern bg-cover bg-center bg-no-repeat">
+    <!-- Dark overlay for text readability -->
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-blue/80 via-blue-600/70 to-blue-800/80"></div>
     <!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden z-10">
       <!-- Wireframe Grid Elements -->
       <svg class="absolute top-10 left-10 w-64 h-64 opacity-20 animate-pulse" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="100" cy="100" r="80" stroke="white" stroke-width="1" fill="none"/>
@@ -32,12 +34,12 @@
       
       <!-- Floating Geometric Shapes -->
       <div class="absolute top-1/4 left-1/4 w-3 h-3 bg-white/30 rounded-full animate-ping"></div>
-      <div class="absolute top-3/4 right-1/4 w-2 h-2 bg-brand-coral/50 rounded-full animate-pulse"></div>
-      <div class="absolute top-1/2 left-1/6 w-4 h-4 bg-brand-green/40 rounded-full animate-bounce" style="animation-delay: 2s;"></div>
+      <div class="absolute top-3/4 right-1/4 w-2 h-2 bg-white/20 rounded-full animate-pulse"></div>
+      <div class="absolute top-1/2 left-1/6 w-4 h-4 bg-white/25 rounded-full animate-bounce" style="animation-delay: 2s;"></div>
     </div>
     
     <!-- Content -->
-    <div class="container mx-auto px-6 text-center relative z-10">
+    <div class="container mx-auto px-6 text-center relative z-20">
       <div class="max-w-4xl mx-auto">
         <!-- Logo -->
         <div class="mb-8">
@@ -47,7 +49,7 @@
         <!-- Main Headline -->
         <h1 class="text-5xl md:text-7xl font-inter font-black text-white mb-6 leading-tight">
           TIME TO 
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-brand-green">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
             VALUE
           </span>
         </h1>

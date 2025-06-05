@@ -148,7 +148,7 @@
             <!-- Tagline -->
             <div class="text-center">
               <div class="inline-flex items-center px-4 py-2 bg-white/5 rounded-full">
-                <span class="w-2 h-2 bg-brand-coral rounded-full mr-2 animate-pulse"></span>
+                <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
                 <span class="text-gray-300 font-inter font-medium text-sm">
                   Helping David Beat Goliath by Leveraging AI
                 </span>

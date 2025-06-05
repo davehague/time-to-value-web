@@ -18,7 +18,7 @@
       <!-- Section Header -->
       <div class="text-center mb-16">
         <div class="inline-flex items-center px-4 py-2 bg-white/10 rounded-full text-white font-medium mb-6">
-          <span class="w-2 h-2 bg-brand-coral rounded-full mr-2"></span>
+          <span class="w-2 h-2 bg-white rounded-full mr-2"></span>
           Let's Talk
         </div>
         <h2 class="text-4xl md:text-5xl font-inter font-bold text-white mb-6">
@@ -73,7 +73,7 @@
                 </div>
                 
                 <div class="flex items-start">
-                  <div class="w-8 h-8 bg-brand-green rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                  <div class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2v-6a2 2 0 012-2h8z"></path>
                     </svg>
@@ -118,7 +118,7 @@
                 </a>
                 
                 <div class="flex items-center text-gray-300">
-                  <div class="w-12 h-12 bg-brand-green rounded-xl flex items-center justify-center mr-4">
+                  <div class="w-12 h-12 bg-gray-600 rounded-xl flex items-center justify-center mr-4">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>

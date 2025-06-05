@@ -15,8 +15,8 @@
     <div class="container mx-auto px-6 relative z-10">
       <!-- Section Header -->
       <div class="text-center mb-16">
-        <div class="inline-flex items-center px-4 py-2 bg-brand-coral/10 rounded-full text-brand-coral font-medium mb-6">
-          <span class="w-2 h-2 bg-brand-coral rounded-full mr-2"></span>
+        <div class="inline-flex items-center px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-medium mb-6">
+          <span class="w-2 h-2 bg-gray-600 rounded-full mr-2"></span>
           Services & Solutions
         </div>
         <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
@@ -37,10 +37,13 @@
             <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-blue/10 to-transparent rounded-bl-3xl"></div>
             
             <div class="relative z-10">
-              <div class="w-16 h-16 bg-gradient-to-br from-brand-blue to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                </svg>
+              <!-- Image -->
+              <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-brand-blue/5 to-blue-50 flex items-center justify-center">
+                <img 
+                  src="/services/abstract-brain.png" 
+                  alt="AI Strategy and Consulting" 
+                  class="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                >
               </div>
               
               <h3 class="text-2xl font-inter font-bold text-brand-dark mb-4">
@@ -79,14 +82,17 @@
           </div>
           
           <!-- AI Agent Development -->
-          <div class="group bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-brand-coral/30 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-coral/10 to-transparent rounded-bl-3xl"></div>
+          <div class="group bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-300 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-gray-100 to-transparent rounded-bl-3xl"></div>
             
             <div class="relative z-10">
-              <div class="w-16 h-16 bg-gradient-to-br from-brand-coral to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
+              <!-- Image -->
+              <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+                <img 
+                  src="/services/robot-assistant.png" 
+                  alt="AI Agent Development" 
+                  class="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                >
               </div>
               
               <h3 class="text-2xl font-inter font-bold text-brand-dark mb-4">
@@ -99,40 +105,43 @@
               
               <ul class="space-y-3 mb-6">
                 <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-brand-coral mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-gray-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
                   Custom agent design
                 </li>
                 <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-brand-coral mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-gray-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
                   Proactive AI implementation
                 </li>
                 <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-brand-coral mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-gray-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
                   Ongoing optimization
                 </li>
               </ul>
               
-              <div class="text-brand-coral font-inter font-semibold group-hover:text-red-600 transition-colors">
+              <div class="text-gray-600 font-inter font-semibold group-hover:text-gray-800 transition-colors">
                 Learn More →
               </div>
             </div>
           </div>
           
           <!-- Workflow Automation -->
-          <div class="group bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-brand-green/30 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-green/10 to-transparent rounded-bl-3xl"></div>
+          <div class="group bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-300 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-gray-100 to-transparent rounded-bl-3xl"></div>
             
             <div class="relative z-10">
-              <div class="w-16 h-16 bg-gradient-to-br from-brand-green to-green-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                </svg>
+              <!-- Image -->
+              <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+                <img 
+                  src="/services/process-flowchart.png" 
+                  alt="Workflow Automation" 
+                  class="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                >
               </div>
               
               <h3 class="text-2xl font-inter font-bold text-brand-dark mb-4">
@@ -145,26 +154,26 @@
               
               <ul class="space-y-3 mb-6">
                 <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-brand-green mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-gray-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
                   Process optimization
                 </li>
                 <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-brand-green mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-gray-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
                   Integration development
                 </li>
                 <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-brand-green mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-gray-600 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                   </svg>
                   Performance monitoring
                 </li>
               </ul>
               
-              <div class="text-brand-green font-inter font-semibold group-hover:text-green-600 transition-colors">
+              <div class="text-gray-600 font-inter font-semibold group-hover:text-gray-800 transition-colors">
                 Learn More →
               </div>
             </div>
@@ -198,7 +207,7 @@
             
             <!-- Step 2 -->
             <div class="text-center group">
-              <div class="w-16 h-16 bg-gradient-to-br from-brand-coral to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span class="text-2xl font-inter font-bold">2</span>
               </div>
               <h4 class="text-lg font-inter font-semibold mb-2">Design</h4>
@@ -209,7 +218,7 @@
             
             <!-- Step 3 -->
             <div class="text-center group">
-              <div class="w-16 h-16 bg-gradient-to-br from-brand-green to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span class="text-2xl font-inter font-bold">3</span>
               </div>
               <h4 class="text-lg font-inter font-semibold mb-2">Deploy</h4>
@@ -220,7 +229,7 @@
             
             <!-- Step 4 -->
             <div class="text-center group">
-              <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span class="text-2xl font-inter font-bold">4</span>
               </div>
               <h4 class="text-lg font-inter font-semibold mb-2">Deliver</h4>
