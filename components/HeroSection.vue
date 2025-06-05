@@ -1,5 +1,5 @@
 <template>
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-pattern bg-cover bg-center bg-no-repeat">
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-pattern bg-cover bg-center bg-no-repeat pt-20">
     <!-- Dark overlay for text readability -->
     <div class="absolute inset-0 bg-gradient-to-br from-brand-blue/80 via-blue-600/70 to-blue-800/80"></div>
     <!-- Animated Background Elements -->
@@ -32,20 +32,28 @@
         <circle cx="150" cy="150" r="100" stroke="white" stroke-width="1" fill="none"/>
       </svg>
       
+      <!-- Additional Clean Geometric Elements -->
+      <svg class="absolute top-1/3 right-1/3 w-32 h-32 opacity-15" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="60" height="60" stroke="white" stroke-width="1" fill="none" rx="8"/>
+        <rect x="35" y="35" width="30" height="30" stroke="white" stroke-width="0.5" fill="none" rx="4"/>
+      </svg>
+      
+      <svg class="absolute bottom-1/3 right-1/4 w-24 h-24 opacity-20 animate-pulse" style="animation-delay: 3s;" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,15 85,75 15,75" stroke="white" stroke-width="1" fill="none"/>
+        <polygon points="50,30 70,60 30,60" stroke="white" stroke-width="0.5" fill="none"/>
+      </svg>
+      
       <!-- Floating Geometric Shapes -->
       <div class="absolute top-1/4 left-1/4 w-3 h-3 bg-white/30 rounded-full animate-ping"></div>
       <div class="absolute top-3/4 right-1/4 w-2 h-2 bg-white/20 rounded-full animate-pulse"></div>
       <div class="absolute top-1/2 left-1/6 w-4 h-4 bg-white/25 rounded-full animate-bounce" style="animation-delay: 2s;"></div>
+      <div class="absolute top-2/3 left-2/3 w-2 h-2 bg-white/30 rounded-full animate-ping" style="animation-delay: 4s;"></div>
+      <div class="absolute bottom-1/4 left-1/3 w-3 h-3 bg-white/20 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
     </div>
     
     <!-- Content -->
     <div class="container mx-auto px-6 text-center relative z-20">
       <div class="max-w-4xl mx-auto">
-        <!-- Logo -->
-        <div class="mb-8">
-          <TimeToValueLogo size="xl" variant="white" />
-        </div>
-        
         <!-- Main Headline -->
         <h1 class="text-5xl md:text-7xl font-inter font-black text-white mb-6 leading-tight">
           TIME TO 
@@ -82,12 +90,6 @@
           </NuxtLink>
         </div>
         
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 animate-bounce">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-        </div>
       </div>
     </div>
   </section>

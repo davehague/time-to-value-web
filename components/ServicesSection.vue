@@ -38,11 +38,11 @@
             
             <div class="relative z-10">
               <!-- Image -->
-              <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-brand-blue/5 to-blue-50 flex items-center justify-center">
+              <div class="w-full h-40 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-brand-blue/5 to-blue-50 flex items-center justify-center">
                 <img 
                   src="/services/abstract-brain.png" 
                   alt="AI Strategy and Consulting" 
-                  class="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                  class="w-40 h-40 object-contain group-hover:scale-110 transition-transform duration-300"
                 >
               </div>
               
@@ -87,11 +87,11 @@
             
             <div class="relative z-10">
               <!-- Image -->
-              <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+              <div class="w-full h-40 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
                 <img 
                   src="/services/robot-assistant.png" 
                   alt="AI Agent Development" 
-                  class="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                  class="w-40 h-40 object-contain group-hover:scale-110 transition-transform duration-300"
                 >
               </div>
               
@@ -136,11 +136,11 @@
             
             <div class="relative z-10">
               <!-- Image -->
-              <div class="w-full h-48 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+              <div class="w-full h-40 mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
                 <img 
                   src="/services/process-flowchart.png" 
                   alt="Workflow Automation" 
-                  class="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+                  class="w-40 h-40 object-contain group-hover:scale-110 transition-transform duration-300"
                 >
               </div>
               
