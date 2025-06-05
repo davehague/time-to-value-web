@@ -1,80 +1,55 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <header ref="headerRef" :class="['fixed top-0 left-0 right-0 z-50 transition-all duration-300', 
-    isHeaderSolid ? 'bg-blue-950' : 'bg-transparent']">
-      <nav class="container mx-auto py-4">
-        <ul class="flex justify-center space-x-6">
-          <li v-for="link in navLinks" :key="link.href">
-            <NuxtLink
-              :to="link.href"
-              class="text-white hover:text-gray-300 transition-colors"
-              :class="{ 'font-bold': link.active }"
-            >
-              {{ link.text }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <HeroSection ref="heroRef" />
-      <AboutUsSection />
-      <PortfolioSection />
-      <TeamSection />
-      <ContactUsSection />
-    </main>
+  <div class="min-h-screen bg-white font-opensans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <NuxtLink to="/" class="flex items-center space-x-3">
+            <TimeToValueLogo size="md" variant="white" />
+            <span class="text-xl font-inter font-bold text-brand-dark">Time To Value</span>
+          </NuxtLink>
+          
+          <!-- Navigation Links -->
+          <div class="hidden md:flex items-center space-x-8">
+            <NuxtLink to="#about" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">About</NuxtLink>
+            <NuxtLink to="#services" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">Services</NuxtLink>
+            <NuxtLink to="#content" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">Content</NuxtLink>
+            <NuxtLink to="#contact" class="bg-brand-blue hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition-all">Get Started</NuxtLink>
+          </div>
+        </div>
+      </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <HeroSection />
+    
+    <!-- Value Proposition Section -->
+    <ValuePropositionSection />
+    
+    <!-- About Section -->
+    <AboutSection />
+    
+    <!-- Services Section -->
+    <ServicesSection />
+    
+    <!-- Content Section -->
+    <ContentSection />
+    
+    <!-- Contact Section -->
+    <ContactSection />
+    
+    <!-- Footer -->
     <FooterSection />
-
-    <ScrollSpy
-      v-for="link in navLinks.filter(l => l.href !== '/')"
-      :key="link.href"
-      :section-id="link.href.substring(1)"
-      :onIntersect="(isIntersecting) => updateActiveLink(link.href, isIntersecting)"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-
-const headerRef = ref<HTMLElement | null>(null);
-const heroRef = ref<HTMLElement | null>(null);
-const isHeaderSolid = ref(false);
-
-onMounted(() => {
-  watch(() => heroRef.value?.heroRoot, (heroRoot) => {
-    if (!heroRoot) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isHeaderSolid.value = !entry.isIntersecting;
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(heroRoot);
-  }, { immediate: true });
-});
-
-const navLinks = ref([
-  { href: '/', text: 'Home', active: true },
-  { href: '#about', text: 'About Us', active: false },
-  { href: '#portfolio', text: 'Portfolio', active: false },
-  { href: '#team', text: 'Team', active: false },
-  { href: '#contact', text: 'Contact Us', active: false },
-]);
-
-const updateActiveLink = (href: string, isIntersecting: boolean) => {
-  navLinks.value = navLinks.value.map(link => ({
-    ...link,
-    active: link.href === href ? isIntersecting : link.active,
-  }));
-};
+// Set page metadata
+useHead({
+  title: 'Time To Value - Helping David Beat Goliath by Leveraging AI',
+  meta: [
+    { name: 'description', content: 'AI consulting and content creation to help you punch above your weight class. Get the signal in the noise with AI agents and proactive AI solutions.' }
+  ]
+})
 </script>
-
-<style scoped>
-header {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-</style>

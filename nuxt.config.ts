@@ -5,14 +5,28 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
   app: {
     head: {
-      title: "Time To Value",
+      title: "Time To Value - Helping David Beat Goliath by Leveraging AI",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "msapplication-TileColor", content: "#2b5797" },
-        { name: "theme-color", content: "#ffffff" },
+        { name: "description", content: "AI consulting and content creation to help you punch above your weight class. Get the signal in the noise with AI agents and proactive AI solutions." },
+        { name: "msapplication-TileColor", content: "#2d6cdf" },
+        { name: "theme-color", content: "#2d6cdf" },
       ],
       link: [
+        {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap",
+        },
         {
           rel: "apple-touch-icon",
           sizes: "180x180",
