@@ -157,62 +157,118 @@
               Start the Conversation
             </h3>
 
-            <form class="space-y-6">
+            <!-- Success Message -->
+            <div v-if="formState.isSuccess" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <p class="text-green-800 font-medium">Message sent successfully!</p>
+              </div>
+              <p class="text-green-700 text-sm mt-1">I'll get back to you within 24 hours (usually much sooner).</p>
+            </div>
+
+            <!-- Error Message -->
+            <div v-if="formState.error" class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <p class="text-red-800 font-medium">Something went wrong</p>
+              </div>
+              <p class="text-red-700 text-sm mt-1">{{ formState.error }}</p>
+            </div>
+
+            <form @submit.prevent="submitForm" class="space-y-6">
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-brand-dark font-inter font-medium mb-2">First Name</label>
-                  <input type="text"
+                  <label class="block text-brand-dark font-inter font-medium mb-2">First Name *</label>
+                  <input 
+                    v-model="formData.firstName"
+                    type="text"
+                    required
                     class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors"
+                    :class="{ 'border-red-300': formErrors.firstName }"
                     placeholder="John">
+                  <p v-if="formErrors.firstName" class="text-red-500 text-sm mt-1">{{ formErrors.firstName }}</p>
                 </div>
                 <div>
-                  <label class="block text-brand-dark font-inter font-medium mb-2">Last Name</label>
-                  <input type="text"
+                  <label class="block text-brand-dark font-inter font-medium mb-2">Last Name *</label>
+                  <input 
+                    v-model="formData.lastName"
+                    type="text"
+                    required
                     class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors"
+                    :class="{ 'border-red-300': formErrors.lastName }"
                     placeholder="Doe">
+                  <p v-if="formErrors.lastName" class="text-red-500 text-sm mt-1">{{ formErrors.lastName }}</p>
                 </div>
               </div>
 
               <div>
-                <label class="block text-brand-dark font-inter font-medium mb-2">Email</label>
-                <input type="email"
+                <label class="block text-brand-dark font-inter font-medium mb-2">Email *</label>
+                <input 
+                  v-model="formData.email"
+                  type="email"
+                  required
                   class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors"
+                  :class="{ 'border-red-300': formErrors.email }"
                   placeholder="john@example.com">
+                <p v-if="formErrors.email" class="text-red-500 text-sm mt-1">{{ formErrors.email }}</p>
               </div>
 
               <div>
                 <label class="block text-brand-dark font-inter font-medium mb-2">Company (Optional)</label>
-                <input type="text"
+                <input 
+                  v-model="formData.company"
+                  type="text"
                   class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors"
                   placeholder="Your company name">
               </div>
 
               <div>
-                <label class="block text-brand-dark font-inter font-medium mb-2">What's your biggest AI
-                  challenge?</label>
-                <textarea rows="4"
+                <label class="block text-brand-dark font-inter font-medium mb-2">What's your biggest AI challenge? *</label>
+                <textarea 
+                  v-model="formData.challenge"
+                  rows="4"
+                  required
                   class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors resize-none"
+                  :class="{ 'border-red-300': formErrors.challenge }"
                   placeholder="Tell me about your situation, goals, or what you're struggling with. The more specific, the better I can help."></textarea>
+                <p v-if="formErrors.challenge" class="text-red-500 text-sm mt-1">{{ formErrors.challenge }}</p>
               </div>
 
               <div>
-                <label class="block text-brand-dark font-inter font-medium mb-2">What type of help are you looking
-                  for?</label>
-                <select
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors">
-                  <option>Choose one...</option>
-                  <option>Strategy & Planning</option>
-                  <option>AI Agent Development</option>
-                  <option>Workflow Automation</option>
-                  <option>Education & Training</option>
-                  <option>General Consultation</option>
-                  <option>Not sure yet</option>
+                <label class="block text-brand-dark font-inter font-medium mb-2">What type of help are you looking for? *</label>
+                <select 
+                  v-model="formData.helpType"
+                  required
+                  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-blue focus:outline-none font-opensans transition-colors"
+                  :class="{ 'border-red-300': formErrors.helpType }">
+                  <option value="">Choose one...</option>
+                  <option value="Strategy & Planning">Strategy & Planning</option>
+                  <option value="AI Agent Development">AI Agent Development</option>
+                  <option value="Workflow Automation">Workflow Automation</option>
+                  <option value="Education & Training">Education & Training</option>
+                  <option value="General Consultation">General Consultation</option>
+                  <option value="Not sure yet">Not sure yet</option>
                 </select>
+                <p v-if="formErrors.helpType" class="text-red-500 text-sm mt-1">{{ formErrors.helpType }}</p>
               </div>
 
-              <button type="submit"
-                class="w-full bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-600 hover:to-brand-blue text-white py-4 rounded-xl font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-                Start the Conversation
+              <button 
+                type="submit"
+                :disabled="formState.isLoading"
+                class="w-full bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-600 hover:to-brand-blue text-white py-4 rounded-xl font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                :class="{ 'opacity-50 cursor-not-allowed': formState.isLoading }">
+                <span v-if="formState.isLoading" class="flex items-center justify-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sending...
+                </span>
+                <span v-else>Start the Conversation</span>
               </button>
 
               <p class="text-gray-500 text-sm font-opensans text-center">
@@ -228,4 +284,201 @@
 </template>
 
 <script setup lang="ts">
+import { contactFormSubmission, contactFormAutoReply } from '@/services/EmailTemplates';
+
+// Form data structure
+const formData = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  company: '',
+  challenge: '',
+  helpType: ''
+});
+
+// Form state management
+const formState = ref({
+  isLoading: false,
+  isSuccess: false,
+  error: null as string | null
+});
+
+// Form validation errors
+const formErrors = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  challenge: '',
+  helpType: ''
+});
+
+// Email validation function
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+// Clear form errors
+const clearErrors = () => {
+  formErrors.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    challenge: '',
+    helpType: ''
+  };
+};
+
+// Validate form
+const validateForm = (): boolean => {
+  clearErrors();
+  let isValid = true;
+
+  // First name validation
+  if (!formData.value.firstName.trim()) {
+    formErrors.value.firstName = 'First name is required';
+    isValid = false;
+  } else if (formData.value.firstName.trim().length < 2) {
+    formErrors.value.firstName = 'First name must be at least 2 characters';
+    isValid = false;
+  }
+
+  // Last name validation
+  if (!formData.value.lastName.trim()) {
+    formErrors.value.lastName = 'Last name is required';
+    isValid = false;
+  } else if (formData.value.lastName.trim().length < 2) {
+    formErrors.value.lastName = 'Last name must be at least 2 characters';
+    isValid = false;
+  }
+
+  // Email validation
+  if (!formData.value.email.trim()) {
+    formErrors.value.email = 'Email is required';
+    isValid = false;
+  } else if (!isValidEmail(formData.value.email.trim())) {
+    formErrors.value.email = 'Please enter a valid email address';
+    isValid = false;
+  }
+
+  // Challenge validation
+  if (!formData.value.challenge.trim()) {
+    formErrors.value.challenge = 'Please describe your AI challenge';
+    isValid = false;
+  } else if (formData.value.challenge.trim().length < 10) {
+    formErrors.value.challenge = 'Please provide more details (at least 10 characters)';
+    isValid = false;
+  }
+
+  // Help type validation
+  if (!formData.value.helpType) {
+    formErrors.value.helpType = 'Please select a type of help';
+    isValid = false;
+  }
+
+  return isValid;
+};
+
+// Template replacement function
+const replaceTemplateVars = (template: string, data: any): string => {
+  let result = template;
+  
+  // Replace all template variables
+  result = result.replace(/{{firstName}}/g, data.firstName);
+  result = result.replace(/{{lastName}}/g, data.lastName);
+  result = result.replace(/{{email}}/g, data.email);
+  result = result.replace(/{{company}}/g, data.company || 'Not specified');
+  result = result.replace(/{{challenge}}/g, data.challenge);
+  result = result.replace(/{{helpType}}/g, data.helpType);
+  result = result.replace(/{{timestamp}}/g, new Date().toLocaleString());
+  
+  return result;
+};
+
+// Reset form
+const resetForm = () => {
+  formData.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    company: '',
+    challenge: '',
+    helpType: ''
+  };
+  clearErrors();
+};
+
+// Submit form
+const submitForm = async () => {
+  // Validate form
+  if (!validateForm()) {
+    return;
+  }
+
+  // Set loading state
+  formState.value.isLoading = true;
+  formState.value.error = null;
+  formState.value.isSuccess = false;
+
+  try {
+    // Prepare email template for notification to Dave
+    const notificationTemplate = replaceTemplateVars(contactFormSubmission, formData.value);
+    
+    // Send notification email to Dave
+    const notificationResponse = await fetch('/api/sendEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        toEmail: 'dave@time2value.com',
+        subject: `New Contact Form Submission from ${formData.value.firstName} ${formData.value.lastName}`,
+        htmlTemplate: notificationTemplate,
+      }),
+    });
+
+    if (!notificationResponse.ok) {
+      throw new Error('Failed to send notification email');
+    }
+
+    // Send auto-reply email to form submitter
+    const autoReplyTemplate = replaceTemplateVars(contactFormAutoReply, formData.value);
+    
+    const autoReplyResponse = await fetch('/api/sendEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        toEmail: formData.value.email,
+        subject: `Thanks for reaching out, ${formData.value.firstName}! I'll be in touch soon.`,
+        htmlTemplate: autoReplyTemplate,
+      }),
+    });
+
+    // Note: We don't throw an error for auto-reply failure since the main notification is sent
+    if (!autoReplyResponse.ok) {
+      console.warn('Auto-reply email failed to send, but notification was successful');
+    }
+
+    // Success state
+    formState.value.isSuccess = true;
+    resetForm();
+
+  } catch (error) {
+    console.error('Error submitting contact form:', error);
+    formState.value.error = 'Failed to send message. Please try again or email me directly at dave@time2value.com';
+  } finally {
+    formState.value.isLoading = false;
+  }
+};
+
+// Clear success message after 5 seconds
+watch(() => formState.value.isSuccess, (isSuccess) => {
+  if (isSuccess) {
+    setTimeout(() => {
+      formState.value.isSuccess = false;
+    }, 5000);
+  }
+});
 </script>
