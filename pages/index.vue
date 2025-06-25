@@ -15,10 +15,10 @@
           <div class="hidden md:flex items-center space-x-8">
             <NuxtLink to="#about" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">About
             </NuxtLink>
-            <NuxtLink to="#services" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">
-              Services</NuxtLink>
             <NuxtLink to="#content" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">Content
             </NuxtLink>
+            <NuxtLink to="#services" class="text-brand-dark hover:text-brand-blue transition-colors font-medium">
+              Services</NuxtLink>
             <NuxtLink to="#contact"
               class="bg-brand-blue hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition-all">Get
               Started</NuxtLink>

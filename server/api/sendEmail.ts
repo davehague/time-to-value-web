@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
       Messages: [
         {
           From: {
-            Email: "noreply@time2value.com",
+            Email: "dave@davehague.com",
             Name: "Time to Value Website Submission",
           },
           To: [

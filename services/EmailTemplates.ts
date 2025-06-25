@@ -68,12 +68,11 @@ export const contactFormSubmission = `
         }
         .contact-details {
             display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 15px;
         }
         .contact-item {
             flex: 1;
-            min-width: 200px;
         }
         .priority-badge {
             display: inline-block;
@@ -235,13 +234,13 @@ export const contactFormAutoReply = `
     <div class="container">
         <div class="header">
             <h1>Thanks for reaching out, {{firstName}}!</h1>
-            <p>I've received your message and will respond personally</p>
+            <p>I've received your message and will respond soon</p>
         </div>
         
         <div class="content">
             <p>Hi {{firstName}},</p>
             
-            <p>Thanks for taking the time to reach out about your AI challenge. I've received your message about <strong>{{helpType}}</strong> and I'm already thinking about how I can help.</p>
+            <p>Thanks for taking the time to reach out about your AI challenges. I've received your message about <strong>{{helpType}}</strong> and I'm already thinking about how I can help.</p>
             
             <div class="highlight-box">
                 <p><strong>What happens next:</strong></p>
@@ -251,13 +250,12 @@ export const contactFormAutoReply = `
             <div class="next-steps">
                 <h3>You can expect to hear from me:</h3>
                 <ul>
-                    <li><strong>Within 4 hours</strong> during business hours (usually much sooner)</li>
-                    <li><strong>Within 24 hours</strong> on weekends and holidays</li>
+                    <li>As soon as possible during business hours</li>
                     <li>With actionable insights, regardless of whether we work together</li>
                 </ul>
             </div>
             
-            <p>In the meantime, feel free to check out some of my content on AI agents and automation strategies. I believe in providing value upfront, so even if we don't end up working together, you'll walk away with something useful.</p>
+            <p>I believe in providing value upfront, so even if we don't end up working together, you'll walk away with something useful.</p>
             
             <p>Looking forward to our conversation!</p>
         </div>
@@ -274,7 +272,7 @@ export const contactFormAutoReply = `
         
         <div class="footer">
             <p><strong>Time To Value</strong><br>
-            Making AI accessible and actionable for businesses that want to punch above their weight class.</p>
+            Helping David Beat Goliath by Leveraging AI</p>
         </div>
     </div>
 </body>
