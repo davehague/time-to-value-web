@@ -11,19 +11,16 @@
 
         <!-- Section Header -->
         <div class="text-center mb-16">
-          <div
-            class="inline-flex items-center px-4 py-2 bg-brand-blue/10 rounded-full text-brand-blue font-medium mb-6">
-            <span class="w-2 h-2 bg-brand-blue rounded-full mr-2"></span>
-            About Time To Value
-          </div>
           <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
-            Your Friend in the AI Revolution
+            Be a leader in the AI Revolution
           </h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
-            Time To Value is a blended company that combines content creation with consulting services,
-            all focused on one mission: helping you leverage AI to compete with the giants.
+            Time to Value has a blended approach - I want you to be successful in this AI revolution, so I offer both
+            free helpful content and bespoke consulting services, all focused on one mission: helping you leverage AI to
+            compete with the big guys.
           </p>
         </div>
+
 
         <!-- Main Content Grid -->
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
@@ -35,23 +32,21 @@
                 Speaking Like a Friend, Not a Consultant
               </h3>
               <p class="text-lg text-gray-600 font-opensans leading-relaxed mb-6">
-                I speak to the camera like I'm speaking to a friend I'm explaining something to — or to myself or my
-                future self.
-                No corporate jargon, no overwhelming technical details. Just practical, actionable insights delivered
-                the way you'd
-                want to hear them over coffee.
+                I promise to keep things simple and relatable. My goal is to make AI accessible to everyone - no
+                corporate jargon, no overwhelming technical details. Just practical, actionable insights delivered
+                the way you'd want to hear them over coffee.
               </p>
 
               <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-                <h4 class="font-inter font-semibold text-brand-dark mb-3">My Core Mantras:</h4>
+                <h4 class="font-inter font-semibold text-brand-dark mb-3">My Core Values:</h4>
                 <ul class="space-y-2 text-gray-600 font-opensans">
                   <li class="flex items-start">
                     <span class="w-2 h-2 bg-brand-blue rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    Provide value to people, and always prioritize the customer experience
+                    Provide value, always prioritize the customer experience
                   </li>
                   <li class="flex items-start">
                     <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                    Get to the 20% that gets you 80% of the way there
+                    Start with the 20% that brings 80% of the value, review, then iterate
                   </li>
                   <li class="flex items-start">
                     <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
@@ -69,10 +64,8 @@
                 <h4 class="text-2xl font-inter font-bold mb-4">What This Means for You</h4>
                 <p class="text-blue-100 font-opensans leading-relaxed">
                   Whether you're a small business owner, an ambitious individual, or someone who just wants to
-                  understand
-                  how AI can help you punch above your weight class, I'm here to bridge the gap between complex AI
-                  concepts
-                  and practical implementation.
+                  understand how AI can help you punch above your weight class, I'm here to bridge the gap between
+                  complex AI concepts and practical implementation.
                 </p>
               </div>
 
@@ -131,7 +124,7 @@
               </p>
               <div class="space-y-2 text-sm text-gray-500">
                 <div>• Video tutorials & explanations</div>
-                <div>• Trend analysis & insights</div>
+                <div>• Written analysis & insights</div>
                 <div>• Practical AI implementations</div>
               </div>
             </div>

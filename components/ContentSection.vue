@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <!-- Trend Analysis -->
+        <!-- Written Analysis -->
         <div
           class="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-gray-300 relative overflow-hidden">
           <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-gray-100 to-transparent rounded-bl-3xl">
@@ -97,7 +97,7 @@
             </div>
 
             <h3 class="text-2xl font-inter font-bold text-brand-dark mb-4">
-              Trend Analysis
+              Written Analysis
             </h3>
             <p class="text-gray-600 font-opensans leading-relaxed mb-6">
               Big picture insights that help you see the forest, not just the trees.
@@ -120,7 +120,7 @@
             </div>
 
             <a href="/blog" class="text-gray-600 font-inter font-semibold group-hover:text-gray-800 transition-colors">
-              Read Latest Analysis →
+              Read Latest Articles →
             </a>
           </div>
         </div>

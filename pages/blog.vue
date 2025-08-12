@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto px-6 py-20">
         <h1 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6 text-center">
-            Trend Analysis
+            Written Analysis
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed text-center">
             Big picture insights that help you see the forest, not just the trees.

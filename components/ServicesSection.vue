@@ -13,6 +13,41 @@
     </div>
 
     <div class="container mx-auto px-6 relative z-10">
+      <!-- Personal Introduction -->
+      <div class="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 mb-16">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <!-- Profile Photo -->
+          <div class="relative flex-shrink-0">
+            <div
+              class="w-32 h-32 bg-gradient-to-br from-brand-blue to-blue-700 rounded-2xl flex items-center justify-center">
+              <!-- Replace this placeholder with your actual photo -->
+              <img src="/dave-headshot.png" alt="Dave Hague" class="w-32 h-32 rounded-2xl object-cover">
+
+            </div>
+          </div>
+
+          <!-- Personal Message -->
+          <div class="text-center md:text-left">
+            <h3 class="text-2xl font-inter font-bold text-brand-dark mb-3">
+              Hi, I'm Dave
+            </h3>
+            <p class="text-lg text-gray-600 font-opensans leading-relaxed mb-4">
+              I'm the person behind Time to Value, and I'm passionate about helping individuals and small businesses
+              harness the power of AI. As a solo consultant, I work directly with you to cut through the AI hype
+              and focus on what actually works for your specific situation.
+            </p>
+            <a href="https://www.linkedin.com/in/david-hague-developer/" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center px-6 py-3 bg-[#0077B5] text-white font-medium rounded-lg hover:bg-[#005885] transition-colors duration-300">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+              Connect with me on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+
       <!-- Section Header -->
       <div class="text-center mb-16">
         <div class="inline-flex items-center px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-medium mb-6">
@@ -20,10 +55,10 @@
           Services & Solutions
         </div>
         <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
-          How We Help You Win
+          Let Me Help You With:
         </h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
-          From strategy to implementation, we provide the AI expertise you need to compete
+          From strategy to implementation, I provide the AI expertise you need to compete
           with companies 10x your size.
         </p>
       </div>
@@ -51,7 +86,7 @@
                 AI Training & Consulting
               </h3>
               <p class="text-gray-600 font-opensans leading-relaxed mb-6">
-                We help you get the most out of AI, developing a plan that fits within your business.
+                I help you get the most out of AI, developing a plan that fits within your business.
                 From identifying opportunities to creating implementation roadmaps.
               </p>
 
@@ -195,10 +230,10 @@
         <div class="bg-gradient-to-br from-brand-dark via-gray-800 to-brand-dark rounded-3xl p-8 md:p-12 text-white">
           <div class="text-center mb-12">
             <h3 class="text-3xl font-inter font-bold mb-4">
-              Our Proven Process
+              My Proven Process
             </h3>
             <p class="text-gray-300 font-opensans text-lg max-w-2xl mx-auto">
-              We follow a structured approach to ensure your AI implementation delivers real value, fast.
+              I follow a structured approach to ensure your AI implementation delivers real value, fast.
             </p>
           </div>
 
