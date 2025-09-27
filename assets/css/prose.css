@@ -1,0 +1,187 @@
+/* Global Prose/Markdown Styles */
+/* This file controls how all markdown content appears on the site */
+
+/* Base prose container */
+.prose {
+  @apply max-w-none;
+}
+
+/* Headings */
+.prose h1 {
+  @apply text-4xl font-inter font-bold text-brand-dark mt-12 mb-6;
+}
+
+.prose h2 {
+  @apply text-3xl font-inter font-semibold text-brand-dark mt-10 mb-4;
+}
+
+.prose h3 {
+  @apply text-2xl font-inter font-medium text-brand-dark mt-8 mb-3;
+}
+
+.prose h4 {
+  @apply text-xl font-inter font-medium text-brand-dark mt-6 mb-2;
+}
+
+/* Paragraphs and body text */
+.prose p {
+  @apply font-opensans text-gray-700 leading-relaxed mb-4;
+}
+
+/* Links */
+.prose a {
+  @apply text-brand-blue no-underline font-medium;
+}
+
+.prose a:hover {
+  @apply underline text-brand-dark;
+}
+
+/* Bold and emphasis */
+.prose strong {
+  @apply text-brand-dark font-semibold;
+}
+
+.prose em {
+  @apply italic;
+}
+
+/* Lists */
+.prose ul {
+  @apply list-disc list-inside space-y-2 mb-4 font-opensans text-gray-700;
+}
+
+.prose ol {
+  @apply list-decimal list-inside space-y-2 mb-4 font-opensans text-gray-700;
+}
+
+.prose li {
+  @apply pl-2;
+}
+
+/* Nested lists */
+.prose li > ul,
+.prose li > ol {
+  @apply mt-2 ml-6;
+}
+
+/* Blockquotes */
+.prose blockquote {
+  @apply border-l-4 border-brand-blue pl-4 py-2 my-6 bg-gray-50 italic font-opensans text-gray-600;
+}
+
+/* Inline code */
+.prose code:not(pre code) {
+  @apply bg-gray-100 text-brand-blue px-2 py-1 rounded text-sm font-mono;
+}
+
+/* Remove backticks that Typography plugin adds */
+.prose code::before,
+.prose code::after {
+  content: "";
+}
+
+/* Code blocks */
+.prose pre {
+  @apply bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-6;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-gray-100 text-sm;
+}
+
+/* Tables */
+.prose table {
+  @apply w-full border-collapse my-6;
+}
+
+.prose th {
+  @apply bg-gray-100 font-semibold text-left px-4 py-2 border border-gray-300;
+}
+
+.prose td {
+  @apply px-4 py-2 border border-gray-300;
+}
+
+.prose tbody tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Images */
+.prose img {
+  @apply rounded-lg shadow-lg my-6;
+}
+
+/* Horizontal rules */
+.prose hr {
+  @apply border-gray-300 my-8;
+}
+
+/* Definition lists (less common but good to have) */
+.prose dl {
+  @apply my-4;
+}
+
+.prose dt {
+  @apply font-semibold text-brand-dark mt-4;
+}
+
+.prose dd {
+  @apply ml-6 text-gray-700;
+}
+
+/* Keyboard input */
+.prose kbd {
+  @apply bg-gray-100 border border-gray-300 rounded px-2 py-1 text-sm font-mono;
+}
+
+/* Size variants - can be used with prose-sm, prose-lg, prose-xl classes */
+.prose-sm {
+  @apply text-sm;
+}
+
+.prose-sm h1 {
+  @apply text-3xl;
+}
+
+.prose-sm h2 {
+  @apply text-2xl;
+}
+
+.prose-lg {
+  @apply text-lg;
+}
+
+.prose-lg h1 {
+  @apply text-5xl;
+}
+
+.prose-lg h2 {
+  @apply text-4xl;
+}
+
+/* Dark mode support (if you add it later) */
+.dark .prose {
+  @apply text-gray-300;
+}
+
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose strong {
+  @apply text-white;
+}
+
+.dark .prose p,
+.dark .prose li {
+  @apply text-gray-300;
+}
+
+.dark .prose code:not(pre code) {
+  @apply bg-gray-800 text-brand-blue;
+}
+
+.dark .prose blockquote {
+  @apply bg-gray-800 border-brand-blue text-gray-400;
+}

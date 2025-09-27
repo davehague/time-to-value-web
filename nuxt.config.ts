@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/content"],
+  css: ["~/assets/css/prose.css"],
   app: {
     head: {
       title: "Time To Value - Helping David Beat Goliath by Leveraging AI",
