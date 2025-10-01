@@ -1,3 +1,11 @@
+---
+title: "Claude Code Tips and Tricks"
+description: "Everything you need to get started with Claude Code. Best practices, tips, and tricks from my experience using it. "
+category: "Claude Code"
+tags: ["agentic engineering", "laude code"]
+publishedAt: "2024-01-15T00:00:00Z"
+updatedAt: "2024-01-15T00:00:00Z"
+---
 
 Claude Code is a truly amazing agentic manager that is can do everything from complex feature work, bug fixes, file management, and more.  It can call APIs, MCP servers, Python tools, command line tools, and more.  Simply use natural language either in the terminal or from a Markdown file that you reference.
 
