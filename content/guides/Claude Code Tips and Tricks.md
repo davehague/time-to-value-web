@@ -34,7 +34,7 @@ If you are running heavy agentic workflows in a loop, then the Max 20X plan at $
 # Claude specific files
 ## CLAUDE.md files
 
-Claude uses a ===CLAUDE.md=== file, which is a markdown file that instructs Claude how to interact with the files in your project.
+Claude uses a **CLAUDE.md** file, which is a markdown file that instructs Claude how to interact with the files in your project.
 
 CLAUDE.md files can be placed at multiple levels throughout a project’s directory structure—global, project root, and within any subdirectory to provide context or rules that are automatically picked up and merged hierarchically. This allows for highly granular, folder-specific AI behavior (for example, different CLAUDE.md files for backend, frontend, docs, etc.), with the most specific file taking precedence for files in its scope. 
 
@@ -144,7 +144,7 @@ In Claude Code, the `@mention` syntax is used to reference files, directories, o
 ## Using Screenshots
 Claude Code is multi-modal, and you should share screenshots with it when it makes sense. These can be for error messages or console logs if you don't want to paste multiple hundreds of lines, or for UI examples or mockups that you want to show it. 
 
-If you're using the command line, you can take screenshots and paste them into the command line using ===Control + V=== (*not Command + V*).  Alternatively, you can drag and drop images directly into the Claude Terminal.   
+If you're using the command line, you can take screenshots and paste them into the command line using **Control + V*** (*not Command + V*).  Alternatively, you can drag and drop images directly into the Claude Terminal.   
 
 ## Context Management
 
@@ -173,7 +173,7 @@ Alternatively, make sure the second or third terminal is very tightly scoped to 
 If you're having the second or third terminal do planning or researching one thing that can help is to have it write down in Markdown files so you can review and come back to them. 
 
 ## Read the work!
-One thing that's important when you're working with Claude code or any LLM is to make sure that you are ===reviewing the output that it gives you===. This can mean reviewing the code changes that it made or it can mean reviewing the documentation or the plans. 
+One thing that's important when you're working with Claude code or any LLM is to make sure that you are **reviewing the output that it gives you**. This can mean reviewing the code changes that it made or it can mean reviewing the documentation or the plans. 
 
 Often I've had trouble with Claude going down the wrong path, but when I go to review the documentation or the plan that it made, it turns out that it had misunderstood what I had intended it to achieve in the first place. 
 

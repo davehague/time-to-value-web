@@ -147,6 +147,12 @@
   @apply bg-gray-100 border border-gray-300 rounded px-2 py-1 text-sm font-mono;
 }
 
+/* Highlighted text */
+.prose mark {
+  @apply bg-yellow-200 px-1 rounded font-medium;
+  color: inherit;
+}
+
 /* Size variants - can be used with prose-sm, prose-lg, prose-xl classes */
 .prose-sm {
   @apply text-sm;
