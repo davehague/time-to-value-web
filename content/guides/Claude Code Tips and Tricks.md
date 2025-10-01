@@ -2,7 +2,7 @@
 title: "Claude Code Tips and Tricks"
 description: "Everything you need to get started with Claude Code. Best practices, tips, and tricks from my experience using it. "
 category: "Claude Code"
-tags: ["agentic engineering", "laude code"]
+tags: ["agentic engineering", "claude code"]
 publishedAt: "2024-01-15T00:00:00Z"
 updatedAt: "2024-01-15T00:00:00Z"
 ---

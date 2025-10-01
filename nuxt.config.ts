@@ -4,6 +4,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@nuxt/content"],
   css: ["~/assets/css/prose.css"],
+  content: {
+    highlight: {
+      theme: 'nord'
+    }
+  },
   app: {
     head: {
       title: "Time To Value - Helping David Beat Goliath by Leveraging AI",
