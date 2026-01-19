@@ -180,6 +180,18 @@
             </div>
 
             <form @submit.prevent="submitForm" class="space-y-6">
+              <!-- Honeypot field - hidden from humans, bots will fill it -->
+              <div class="absolute -left-[9999px]" aria-hidden="true">
+                <label for="website">Website</label>
+                <input
+                  v-model="honeypot"
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off">
+              </div>
+
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-brand-dark font-inter font-medium mb-2">First Name *</label>
@@ -296,6 +308,12 @@ const formData = ref({
   helpType: ''
 });
 
+// Anti-spam: honeypot field (should remain empty)
+const honeypot = ref('');
+
+// Anti-spam: track form load time
+const formLoadTime = ref(Date.now());
+
 // Form state management
 const formState = ref({
   isLoading: false,
@@ -327,6 +345,23 @@ const clearErrors = () => {
     challenge: '',
     helpType: ''
   };
+};
+
+// Anti-spam validation
+const validateAntiSpam = (): { valid: boolean; reason?: string } => {
+  // Check honeypot - should be empty
+  if (honeypot.value) {
+    return { valid: false, reason: 'spam_honeypot' };
+  }
+
+  // Check time - form should take at least 3 seconds to fill
+  const elapsed = Date.now() - formLoadTime.value;
+  const minTime = 3000; // 3 seconds
+  if (elapsed < minTime) {
+    return { valid: false, reason: 'spam_too_fast' };
+  }
+
+  return { valid: true };
 };
 
 // Validate form
@@ -405,11 +440,23 @@ const resetForm = () => {
     challenge: '',
     helpType: ''
   };
+  honeypot.value = '';
+  formLoadTime.value = Date.now(); // Reset timer for next submission
   clearErrors();
 };
 
 // Submit form
 const submitForm = async () => {
+  // Anti-spam check first
+  const spamCheck = validateAntiSpam();
+  if (!spamCheck.valid) {
+    // Silently reject spam - show fake success to not tip off bots
+    console.log('Spam submission blocked:', spamCheck.reason);
+    formState.value.isSuccess = true;
+    resetForm();
+    return;
+  }
+
   // Validate form
   if (!validateForm()) {
     return;
@@ -434,6 +481,9 @@ const submitForm = async () => {
         toEmail: 'dave@time2value.com',
         subject: `New Contact Form Submission from ${formData.value.firstName} ${formData.value.lastName}`,
         htmlTemplate: notificationTemplate,
+        // Anti-spam fields for server validation
+        _hp: honeypot.value,
+        _ts: formLoadTime.value,
       }),
     });
 
