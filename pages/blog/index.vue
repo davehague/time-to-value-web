@@ -1,5 +1,7 @@
 <template>
-    <div class="container mx-auto px-6 py-20">
+    <div class="min-h-screen bg-gray-50">
+        <NavHeader />
+        <div class="container mx-auto px-6 py-20 pt-28">
         <h1 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6 text-center">
             Written Analysis
         </h1>
@@ -52,6 +54,8 @@
         <div v-else class="mt-10 text-center">
             <p class="text-lg text-gray-700">No articles found. Check back soon for insights!</p>
         </div>
+        </div>
+        <FooterSection />
     </div>
 </template>
 

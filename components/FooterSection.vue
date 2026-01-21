@@ -58,22 +58,27 @@
             <h4 class="text-lg font-inter font-semibold mb-6">Quick Links</h4>
             <ul class="space-y-3">
               <li>
-                <NuxtLink to="#about" class="text-gray-300 hover:text-white font-opensans transition-colors">
+                <NuxtLink to="/#about" class="text-gray-300 hover:text-white font-opensans transition-colors">
                   About
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="#services" class="text-gray-300 hover:text-white font-opensans transition-colors">
+                <NuxtLink to="/guides" class="text-gray-300 hover:text-white font-opensans transition-colors">
+                  Guides
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/blog" class="text-gray-300 hover:text-white font-opensans transition-colors">
+                  Blog
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink to="/#services" class="text-gray-300 hover:text-white font-opensans transition-colors">
                   Services
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="#content" class="text-gray-300 hover:text-white font-opensans transition-colors">
-                  Content
-                </NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="#contact" class="text-gray-300 hover:text-white font-opensans transition-colors">
+                <NuxtLink to="/#contact" class="text-gray-300 hover:text-white font-opensans transition-colors">
                   Contact
                 </NuxtLink>
               </li>

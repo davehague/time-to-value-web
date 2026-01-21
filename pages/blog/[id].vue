@@ -1,6 +1,7 @@
 <template>
     <div class="min-h-screen bg-gray-50">
-        <article v-if="post" class="container mx-auto px-6 py-20 max-w-4xl">
+        <NavHeader />
+        <article v-if="post" class="container mx-auto px-6 py-20 pt-28 max-w-4xl">
             <header class="mb-12">
                 <NuxtLink to="/blog" class="inline-flex items-center text-brand-blue hover:text-brand-dark transition-colors mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,19 +56,21 @@
                 <ContentRenderer :value="post" />
             </div>
 
-            <footer class="mt-16 pt-8 border-t border-gray-200">
-                <div class="flex items-center justify-between">
-                    <NuxtLink to="/blog" class="inline-flex items-center text-brand-blue hover:text-brand-dark transition-colors">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        All Articles
-                    </NuxtLink>
-                </div>
-            </footer>
+            <!-- Soft CTA -->
+            <GuideCTA />
+
+            <!-- Back to blog link -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <NuxtLink to="/blog" class="inline-flex items-center text-brand-blue hover:text-brand-dark transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    All Articles
+                </NuxtLink>
+            </div>
         </article>
 
-        <div v-else class="container mx-auto px-6 py-20 text-center">
+        <div v-else class="container mx-auto px-6 py-20 pt-28 text-center">
             <h1 class="text-3xl font-inter font-bold text-brand-dark mb-4">Article Not Found</h1>
             <p class="text-gray-600 mb-8">The article you're looking for doesn't exist or has been moved.</p>
             <NuxtLink to="/blog" class="inline-flex items-center text-brand-blue hover:text-brand-dark transition-colors">
@@ -77,6 +80,7 @@
                 Back to Blog
             </NuxtLink>
         </div>
+        <FooterSection />
     </div>
 </template>
 
