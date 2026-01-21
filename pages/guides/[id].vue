@@ -96,10 +96,70 @@ const { data: guide } = await useAsyncData(`guide-${route.params.id}`, async () 
     return foundGuide || null
 })
 
+const siteUrl = 'https://www.time2value.com'
+const pageUrl = `${siteUrl}/guides/${route.params.id}`
+
 if (guide.value) {
     useSeoMeta({
         title: `${guide.value.title} - Time To Value`,
         description: guide.value.description,
+        // Open Graph
+        ogType: 'article',
+        ogTitle: guide.value.title,
+        ogDescription: guide.value.description,
+        ogUrl: pageUrl,
+        ogSiteName: 'Time To Value',
+        ogLocale: 'en_US',
+        ogImage: `${siteUrl}/og-image.png`,
+        // Twitter Card
+        twitterCard: 'summary_large_image',
+        twitterTitle: guide.value.title,
+        twitterDescription: guide.value.description,
+        twitterImage: `${siteUrl}/og-image.png`,
+        // Article specific
+        articlePublishedTime: guide.value.publishedAt,
+        articleModifiedTime: guide.value.updatedAt || guide.value.publishedAt,
+    })
+
+    // Add canonical URL and JSON-LD structured data
+    useHead({
+        link: [
+            { rel: 'canonical', href: pageUrl }
+        ],
+        script: [
+            {
+                type: 'application/ld+json',
+                innerHTML: JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'TechArticle',
+                    headline: guide.value.title,
+                    description: guide.value.description,
+                    url: pageUrl,
+                    datePublished: guide.value.publishedAt,
+                    dateModified: guide.value.updatedAt || guide.value.publishedAt,
+                    author: {
+                        '@type': 'Person',
+                        name: 'Dave Hague',
+                        url: siteUrl
+                    },
+                    publisher: {
+                        '@type': 'Organization',
+                        name: 'Time To Value',
+                        url: siteUrl,
+                        logo: {
+                            '@type': 'ImageObject',
+                            url: `${siteUrl}/favicon/apple-touch-icon.png`
+                        }
+                    },
+                    mainEntityOfPage: {
+                        '@type': 'WebPage',
+                        '@id': pageUrl
+                    },
+                    keywords: guide.value.tags?.join(', '),
+                    articleSection: guide.value.category
+                })
+            }
+        ]
     })
 }
 

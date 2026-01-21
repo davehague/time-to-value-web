@@ -99,10 +99,70 @@ const { data: post } = await useAsyncData(`blog-${route.params.id}`, async () =>
     return foundPost || null
 })
 
+const siteUrl = 'https://www.time2value.com'
+const pageUrl = `${siteUrl}/blog/${route.params.id}`
+
 if (post.value) {
     useSeoMeta({
         title: `${post.value.title} - Time To Value`,
         description: post.value.description,
+        // Open Graph
+        ogType: 'article',
+        ogTitle: post.value.title,
+        ogDescription: post.value.description,
+        ogUrl: pageUrl,
+        ogSiteName: 'Time To Value',
+        ogLocale: 'en_US',
+        ogImage: `${siteUrl}/og-image.png`,
+        // Twitter Card
+        twitterCard: 'summary_large_image',
+        twitterTitle: post.value.title,
+        twitterDescription: post.value.description,
+        twitterImage: `${siteUrl}/og-image.png`,
+        // Article specific
+        articlePublishedTime: post.value.publishedAt,
+        articleModifiedTime: post.value.updatedAt || post.value.publishedAt,
+        articleAuthor: post.value.author || 'Dave Hague',
+    })
+
+    // Add canonical URL and JSON-LD structured data
+    useHead({
+        link: [
+            { rel: 'canonical', href: pageUrl }
+        ],
+        script: [
+            {
+                type: 'application/ld+json',
+                innerHTML: JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'BlogPosting',
+                    headline: post.value.title,
+                    description: post.value.description,
+                    url: pageUrl,
+                    datePublished: post.value.publishedAt,
+                    dateModified: post.value.updatedAt || post.value.publishedAt,
+                    author: {
+                        '@type': 'Person',
+                        name: post.value.author || 'Dave Hague',
+                        url: siteUrl
+                    },
+                    publisher: {
+                        '@type': 'Organization',
+                        name: 'Time To Value',
+                        url: siteUrl,
+                        logo: {
+                            '@type': 'ImageObject',
+                            url: `${siteUrl}/favicon/apple-touch-icon.png`
+                        }
+                    },
+                    mainEntityOfPage: {
+                        '@type': 'WebPage',
+                        '@id': pageUrl
+                    },
+                    keywords: post.value.tags?.join(', ')
+                })
+            }
+        ]
     })
 }
 

@@ -2,8 +2,17 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/content"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/content", "@nuxtjs/sitemap"],
   css: ["~/assets/css/prose.css"],
+
+  // Site configuration for SEO
+  site: {
+    url: 'https://www.time2value.com',
+    name: 'Time To Value',
+  },
+
+  // Sitemap configuration (auto-discovers routes)
+
   content: {
     highlight: {
       theme: 'nord'
@@ -18,6 +27,19 @@ export default defineNuxtConfig({
         { name: "description", content: "AI consulting and content creation to help you punch above your weight class. Get the signal in the noise with AI agents and proactive AI solutions." },
         { name: "msapplication-TileColor", content: "#2d6cdf" },
         { name: "theme-color", content: "#2d6cdf" },
+        // Open Graph meta tags
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: "Time To Value" },
+        { property: "og:title", content: "Time To Value - Helping David Beat Goliath by Leveraging AI" },
+        { property: "og:description", content: "AI consulting and content creation to help you punch above your weight class. Get the signal in the noise with AI agents and proactive AI solutions." },
+        { property: "og:image", content: "https://www.time2value.com/og-image.png" },
+        { property: "og:url", content: "https://www.time2value.com" },
+        { property: "og:locale", content: "en_US" },
+        // Twitter Card meta tags
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: "Time To Value - Helping David Beat Goliath by Leveraging AI" },
+        { name: "twitter:description", content: "AI consulting and content creation to help you punch above your weight class. Get the signal in the noise with AI agents and proactive AI solutions." },
+        { name: "twitter:image", content: "https://www.time2value.com/og-image.png" },
       ],
       link: [
         {

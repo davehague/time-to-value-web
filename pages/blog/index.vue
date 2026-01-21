@@ -73,9 +73,33 @@ const formatDate = (dateString: string) => {
     })
 }
 
+const siteUrl = 'https://www.time2value.com'
+const pageUrl = `${siteUrl}/blog`
+const pageTitle = 'Written Analysis - Time To Value'
+const pageDescription = 'Big picture insights that help you see the forest, not just the trees. Understand where AI is heading and how to position yourself.'
+
 useSeoMeta({
-    title: 'Written Analysis - Time To Value',
-    description: 'Big picture insights that help you see the forest, not just the trees. Understand where AI is heading and how to position yourself.'
+    title: pageTitle,
+    description: pageDescription,
+    // Open Graph
+    ogType: 'website',
+    ogTitle: pageTitle,
+    ogDescription: pageDescription,
+    ogUrl: pageUrl,
+    ogSiteName: 'Time To Value',
+    ogLocale: 'en_US',
+    ogImage: `${siteUrl}/og-image.png`,
+    // Twitter Card
+    twitterCard: 'summary_large_image',
+    twitterTitle: pageTitle,
+    twitterDescription: pageDescription,
+    twitterImage: `${siteUrl}/og-image.png`,
+})
+
+useHead({
+    link: [
+        { rel: 'canonical', href: pageUrl }
+    ]
 })
 </script>
 

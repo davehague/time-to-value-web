@@ -57,9 +57,33 @@ const { data: guides } = await useAsyncData('guides', () =>
     queryCollection('guides').order('order', 'ASC').all()
 )
 
+const siteUrl = 'https://www.time2value.com'
+const pageUrl = `${siteUrl}/guides`
+const pageTitle = 'Practical Guides - Time To Value'
+const pageDescription = 'Distilled, actionable guides that help you leverage AI to punch above your weight class. Get 80% of the value with 20% of the effort.'
+
 useSeoMeta({
-    title: 'Practical Guides - Time To Value',
-    description: 'Distilled, actionable guides that help you leverage AI to punch above your weight class. Get 80% of the value with 20% of the effort.'
+    title: pageTitle,
+    description: pageDescription,
+    // Open Graph
+    ogType: 'website',
+    ogTitle: pageTitle,
+    ogDescription: pageDescription,
+    ogUrl: pageUrl,
+    ogSiteName: 'Time To Value',
+    ogLocale: 'en_US',
+    ogImage: `${siteUrl}/og-image.png`,
+    // Twitter Card
+    twitterCard: 'summary_large_image',
+    twitterTitle: pageTitle,
+    twitterDescription: pageDescription,
+    twitterImage: `${siteUrl}/og-image.png`,
+})
+
+useHead({
+    link: [
+        { rel: 'canonical', href: pageUrl }
+    ]
 })
 </script>
 

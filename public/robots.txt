@@ -1,0 +1,11 @@
+# Robots.txt for Time To Value
+# https://www.time2value.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.time2value.com/sitemap.xml
+
+# Disallow admin/api routes
+Disallow: /api/
