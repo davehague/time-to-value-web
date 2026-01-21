@@ -15,27 +15,14 @@
         <!-- Email Signup Form -->
         <form @submit.prevent="handleSubscribe" class="mb-6">
           <!-- Honeypot field - hidden from users -->
-          <input
-            type="text"
-            v-model="honeypot"
-            class="absolute -left-[9999px]"
-            tabindex="-1"
-            autocomplete="off"
-          />
+          <input type="text" v-model="honeypot" class="absolute -left-[9999px]" tabindex="-1" autocomplete="off" />
 
           <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-            <input
-              v-model="email"
-              type="email"
-              placeholder="Enter your email"
+            <input v-model="email" type="email" placeholder="Enter your email"
               :disabled="status === 'loading' || status === 'success'"
-              class="flex-1 px-4 py-3 rounded-full border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
-            />
-            <button
-              type="submit"
-              :disabled="status === 'loading' || status === 'success'"
-              class="bg-brand-blue hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-            >
+              class="flex-1 px-4 py-3 rounded-full border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all disabled:bg-gray-100 disabled:cursor-not-allowed" />
+            <button type="submit" :disabled="status === 'loading' || status === 'success'"
+              class="bg-brand-blue hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap">
               <span v-if="status === 'loading'">Subscribing...</span>
               <span v-else-if="status === 'success'">Subscribed!</span>
               <span v-else>Stay in Touch</span>
@@ -44,7 +31,7 @@
 
           <!-- Status Messages -->
           <p v-if="status === 'success'" class="mt-3 text-green-600 font-medium">
-            Thanks for subscribing! I'll be in touch.
+            Thanks for subscribing! You'll get notified when new blog posts or guides arrive.
           </p>
           <p v-if="status === 'error'" class="mt-3 text-red-600">
             {{ errorMessage }}
@@ -54,10 +41,7 @@
         <!-- Secondary CTA -->
         <p class="text-gray-500">
           Or
-          <NuxtLink
-            to="/#contact"
-            class="text-brand-blue hover:text-blue-700 font-medium transition-colors"
-          >
+          <NuxtLink to="/#contact" class="text-brand-blue hover:text-blue-700 font-medium transition-colors">
             schedule a conversation →
           </NuxtLink>
         </p>

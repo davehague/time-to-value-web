@@ -11,10 +11,10 @@
 
         <!-- Section Header -->
         <div class="text-center mb-16">
-          <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
+          <h2 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-6">
             Be a leader in the AI Revolution
           </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
             Time to Value has a blended approach - I want you to be successful in this AI revolution, so I offer both
             free helpful content and bespoke consulting services, all focused on one mission: helping you leverage AI to
             compete with the big guys.

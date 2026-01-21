@@ -22,10 +22,10 @@
           <span class="w-2 h-2 bg-gray-600 rounded-full mr-2"></span>
           Content & Education
         </div>
-        <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
+        <h2 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-6">
           Learn to Skate Where the Puck is Going
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
           Stay ahead of the curve with content that cuts through the hype and delivers
           the insights you need to make AI work for your business.
         </p>

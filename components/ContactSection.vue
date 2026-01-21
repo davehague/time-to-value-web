@@ -23,10 +23,10 @@
           <span class="w-2 h-2 bg-white rounded-full mr-2"></span>
           Let's Talk
         </div>
-        <h2 class="text-4xl md:text-5xl font-inter font-bold text-white mb-6">
+        <h2 class="text-3xl md:text-4xl font-inter font-bold text-white mb-6">
           Ready to Beat Goliath?
         </h2>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto font-opensans leading-relaxed">
+        <p class="text-lg text-gray-300 max-w-3xl mx-auto font-opensans leading-relaxed">
           Let's have a conversation about how AI can help you punch above your weight class.
           No sales pitch, just an honest discussion about what's possible.
         </p>

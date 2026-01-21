@@ -54,10 +54,10 @@
           <span class="w-2 h-2 bg-gray-600 rounded-full mr-2"></span>
           Services & Solutions
         </div>
-        <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
+        <h2 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-6">
           Let Me Help You With:
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto font-opensans leading-relaxed">
           From strategy to implementation, I provide the AI expertise you need to compete
           with companies 10x your size.
         </p>

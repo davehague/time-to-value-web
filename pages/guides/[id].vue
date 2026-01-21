@@ -14,11 +14,11 @@
                     {{ guide.category }}
                 </div>
 
-                <h1 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-4">
+                <h1 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-4">
                     {{ guide.title }}
                 </h1>
 
-                <p class="text-xl text-gray-600 font-opensans leading-relaxed mb-6">
+                <p class="text-lg text-gray-600 font-opensans leading-relaxed mb-6">
                     {{ guide.description }}
                 </p>
 
@@ -49,7 +49,7 @@
                 </div>
             </header>
 
-            <div class="prose prose-lg">
+            <div class="prose prose-base max-w-none">
                 <ContentRenderer :value="guide" />
             </div>
 

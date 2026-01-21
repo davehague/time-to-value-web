@@ -81,11 +81,11 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <NuxtLink to="#services"
             class="bg-gradient-to-r from-brand-coral to-red-500 hover:from-red-500 hover:to-brand-coral text-white px-8 py-4 rounded-full font-inter font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-            Get The Signal in the Noise
+            See How I Can Help
           </NuxtLink>
-          <NuxtLink to="#about"
+          <NuxtLink to="#contact"
             class="border-2 border-white text-white hover:bg-white hover:text-brand-blue px-8 py-4 rounded-full font-inter font-semibold text-lg transition-all duration-300">
-            Learn More
+            Get In Touch
           </NuxtLink>
         </div>
 

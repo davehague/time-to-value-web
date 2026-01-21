@@ -8,10 +8,10 @@
     <div class="container mx-auto px-6 relative z-10">
       <!-- Section Header -->
       <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-inter font-bold text-brand-dark mb-6">
+        <h2 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-6">
           What You'll Get on This Journey
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto font-opensans">
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto font-opensans">
           My goal is to bring these themes to you in a consumable format — the same way I'd explain something over coffee to an ambitious friend who wants to upgrade their workflows, their job, and their life using AI.
         </p>
       </div>
