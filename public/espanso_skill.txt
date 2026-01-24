@@ -1,0 +1,365 @@
+---
+name: espanso-manager
+description: Use when user wants to create, read, update, or delete Espanso text expansion configurations - manages match files, config files, triggers, and replacements in the Espanso config directory
+---
+
+# Espanso Configuration Manager
+
+Manage Espanso text expander configurations through Claude. Create, read, update, and delete matches and configuration files.
+
+## Configuration
+
+**Set your Espanso config directory path below:**
+
+```
+ESPANSO_CONFIG_DIR: ~/Library/Application Support/espanso
+```
+
+**Find your path:** Run `espanso path` in terminal to get your exact location.
+
+| OS | Default Location |
+|----|------------------|
+| macOS | `~/Library/Application Support/espanso` |
+| Linux | `~/.config/espanso` |
+| Windows | `%APPDATA%\espanso` |
+
+**To share this skill:** Recipients only need to update the path above.
+
+## Directory Structure
+
+```
+$ESPANSO_CONFIG_DIR/
+├── config/
+│   ├── default.yml          # Default configuration (HOW Espanso behaves)
+│   └── [app-name].yml        # App-specific configs
+└── match/
+    ├── base.yml              # Default matches (auto-loaded)
+    ├── [category].yml        # Additional match files (auto-loaded)
+    └── _[private].yml        # Private files (NOT auto-loaded, use with imports)
+```
+
+## Quick Reference
+
+| Operation | Command |
+|-----------|---------|
+| List all match files | `ls "$ESPANSO_CONFIG_DIR/match/"` |
+| List all config files | `ls "$ESPANSO_CONFIG_DIR/config/"` |
+| View matches | Read the `.yml` file |
+| Reload config | `espanso restart` |
+
+## Match File Format
+
+```yaml
+# Match files define WHAT Espanso does
+matches:
+  # Simple text replacement
+  - trigger: ":sig"
+    replace: "Best regards,\nYour Name"
+
+  # Multi-trigger
+  - triggers: [":email", ":em"]
+    replace: "user@example.com"
+
+  # With cursor position ($|$ = cursor location after expansion)
+  - trigger: ":div"
+    replace: "<div>$|$</div>"
+
+  # Word-only trigger (won't expand inside other words)
+  - trigger: "teh"
+    replace: "the"
+    word: true
+
+  # Dynamic with date
+  - trigger: ":today"
+    replace: "{{date}}"
+    vars:
+      - name: date
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  # With form input
+  - trigger: ":greet"
+    form: "Hello [[name]], nice to meet you!"
+
+  # Shell command output
+  - trigger: ":ip"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl -s ifconfig.me"
+```
+
+## Config File Format
+
+```yaml
+# Config files define HOW Espanso behaves
+# $ESPANSO_CONFIG_DIR/config/default.yml
+
+# Search bar shortcut
+search_shortcut: ALT+SPACE
+
+# Toggle key (double-press to enable/disable)
+toggle_key: RIGHT_ALT  # or OFF to disable
+
+# Hide notifications
+show_notifications: false
+
+# Backend for text injection
+backend: auto  # auto, clipboard, or inject
+```
+
+## CRUD Operations
+
+### CREATE
+
+**New match file:**
+```bash
+# Create category-specific match file (auto-loaded)
+touch "$ESPANSO_CONFIG_DIR/match/emails.yml"
+```
+
+Write with this structure:
+```yaml
+matches:
+  - trigger: ":trigger"
+    replace: "replacement text"
+```
+
+**Add match to existing file:**
+Read the file, append new match to `matches:` list, write back.
+
+**New app-specific config:**
+```bash
+touch "$ESPANSO_CONFIG_DIR/config/slack.yml"
+```
+
+Write with filter and options:
+```yaml
+filter_exec: Slack
+enable: false  # or other options
+```
+
+### READ
+
+**List all triggers:**
+```bash
+grep -h "trigger:" "$ESPANSO_CONFIG_DIR/match/"*.yml | sed 's/.*trigger: *//'
+```
+
+**Find specific trigger:**
+```bash
+grep -l ":mytrigger" "$ESPANSO_CONFIG_DIR/match/"*.yml
+```
+
+**View file contents:**
+Read the target `.yml` file directly.
+
+### UPDATE
+
+1. Read the target file
+2. Modify the YAML content
+3. Write the file back
+4. Espanso auto-reloads (or run `espanso restart`)
+
+**Modifying a match:**
+- Find the match by its trigger
+- Update the `replace`, `trigger`, or other fields
+- Preserve YAML indentation (2 spaces)
+
+### DELETE
+
+**Remove a match:**
+1. Read the file containing the match
+2. Remove the match entry from `matches:` list
+3. Write the file back
+
+**Delete entire match file:**
+```bash
+rm "$ESPANSO_CONFIG_DIR/match/filename.yml"
+```
+
+## Global Variables
+
+Define reusable variables at the top of match files:
+
+```yaml
+global_vars:
+  - name: myname
+    type: echo
+    params:
+      echo: "John Doe"
+  - name: myemail
+    type: echo
+    params:
+      echo: "john@example.com"
+
+matches:
+  - trigger: ":me"
+    replace: "{{myname}} ({{myemail}})"
+```
+
+## App-Specific Configurations
+
+**Filter types:**
+- `filter_exec`: Match by executable path (e.g., `Telegram`, `Code`)
+- `filter_title`: Match by window title (e.g., `YouTube`, `GitHub`)
+- `filter_class`: Match by window class (Linux)
+
+**Detect current app info:** Type `#detect#` in any app to see its filter values.
+
+**Example - Disable in Telegram:**
+```yaml
+# $ESPANSO_CONFIG_DIR/config/telegram.yml
+filter_exec: Telegram
+enable: false
+```
+
+**Example - Use clipboard backend in VS Code:**
+```yaml
+# $ESPANSO_CONFIG_DIR/config/vscode.yml
+filter_exec: Code
+backend: clipboard
+```
+
+## Private Match Files
+
+Files starting with `_` are NOT auto-loaded. Use for:
+- App-specific snippets included via `extra_includes`
+- Organized imports
+
+```yaml
+# $ESPANSO_CONFIG_DIR/config/vscode.yml
+filter_exec: Code
+extra_includes:
+  - "../match/_code_snippets.yml"
+```
+
+## Validation
+
+After making changes:
+
+1. **Check YAML syntax:**
+   ```bash
+   python3 -c "import yaml; yaml.safe_load(open('$ESPANSO_CONFIG_DIR/match/base.yml'))"
+   ```
+
+2. **Restart Espanso:**
+   ```bash
+   espanso restart
+   ```
+
+3. **Check status:**
+   ```bash
+   espanso status
+   ```
+
+4. **Test the trigger** in any text field
+
+## Common Patterns
+
+### Email signatures
+```yaml
+- trigger: ":sig1"
+  replace: |
+    Best regards,
+    John Doe
+    Senior Developer
+
+- trigger: ":sig2"
+  replace: |
+    Thanks,
+    John
+```
+
+### Date/time shortcuts
+```yaml
+- trigger: ":now"
+  replace: "{{time}}"
+  vars:
+    - name: time
+      type: date
+      params:
+        format: "%H:%M"
+
+- trigger: ":date"
+  replace: "{{date}}"
+  vars:
+    - name: date
+      type: date
+      params:
+        format: "%B %d, %Y"
+```
+
+### Code snippets
+```yaml
+- trigger: ":log"
+  replace: "console.log($|$);"
+
+- trigger: ":fn"
+  replace: |
+    function $|$() {
+
+    }
+```
+
+### Clipboard with transformation
+```yaml
+- trigger: ":upper"
+  replace: "{{clipboard}}"
+  vars:
+    - name: clipboard
+      type: clipboard
+      params:
+        trim: true
+```
+
+### Forms with multiple inputs
+```yaml
+- trigger: ":meeting"
+  form: |
+    Meeting with [[attendee]]
+    Date: [[date]]
+    Topic: [[topic]]
+  form_fields:
+    topic:
+      multiline: true
+    date:
+      type: choice
+      values:
+        - Today
+        - Tomorrow
+        - Next Week
+```
+
+### Regex triggers (advanced)
+```yaml
+# Match any 3-digit number
+- regex: ":num(\\d{3})"
+  replace: "Number: $1"
+```
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Expansion not working | Check `espanso status`, restart if needed |
+| YAML syntax error | Validate with Python yaml module |
+| Trigger conflicts | Use unique triggers, check with grep |
+| Slow expansions | Adjust `inject_delay` in config |
+| Missing characters | Try `backend: clipboard` in config |
+
+## CLI Commands
+
+```bash
+espanso status          # Check if running
+espanso start           # Start Espanso
+espanso restart         # Restart (reload config)
+espanso stop            # Stop Espanso
+espanso edit            # Open base.yml in editor
+espanso edit emails     # Open match/emails.yml
+espanso path            # Show config directory path
+espanso match list      # List all matches
+```
