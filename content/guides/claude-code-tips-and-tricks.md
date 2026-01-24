@@ -2,9 +2,9 @@
 title: "Claude Code Tips and Tricks"
 description: "Everything you need to get started with Claude Code. Best practices, tips, and tricks from my experience using it. "
 category: "Claude Code"
-tags: ["agentic engineering", "claude code"]
+tags: []
 publishedAt: "2024-01-15T00:00:00Z"
-updatedAt: "2024-01-15T00:00:00Z"
+updatedAt: "2026-01-23T00:00:00Z"
 ---
 
 Claude Code is a truly amazing agentic manager that can do everything from complex feature work, bug fixes, file management, and more.  It can call APIs, MCP servers, Python tools, command line tools, and more.  Simply use natural language either in the terminal or from a Markdown file that you reference.
@@ -181,13 +181,11 @@ I could have saved myself a lot of time by simply reviewing the plan or document
 
 ## Using Think, Think Deeply, and Ultrathink.
 
-You can have Claude Code think for longer and do more planning by using the keywords:
+*UPDATE: As of early 2026 Claude Code always does ultrathink*
 
-- **think**
-- **think deeply**
-- **ultrathink**
 
-By using these, Claude will do more planning as it does the work. You will be able to see this through some dark gray text viewing its chain of thought as it gets to work.  I tend to think that it's good to toss the word "think" or "think deeply" into almost every prompt, so that way it takes a little bit extra time to plan out what it's going to do. I have yet to find a downside to doing this. I usually reserve "ultrathink" for when I'm starting a new feature or something that's going to take a lot more effort to complete a full set of work.
+::tweet{id="2013643590849720628"}
+::
 
 
 # MCP with Claude Code
@@ -294,7 +292,7 @@ Python is famous for having a set of powerful advanced libraries, and now that C
 
 ## Using Talk to Text
 
-I use talk-to-text regularly for Claude Code to make things go even faster.   I started out by using the native Mac talk-to-text, but recently switched to Wispr Flow which is even better and does some clean up of your speech. I find it to be a lot faster to get things done, especially when I'm working between multiple Claude code terminals.
+I use talk-to-text regularly for Claude Code to make things go even faster.   I started out by using the native Mac talk-to-text, but recently switched to [Wispr Flow](https://ref.wisprflow.ai/david-hague) (affiliate link) which is even better and does some clean up of your speech. I find it to be a lot faster to get things done, especially when I'm working between multiple Claude code terminals.
 
 ## See your usage
 You can see your token usage and what you would've spent through the API had you not been using your Anthropic subscription by running the following command:
