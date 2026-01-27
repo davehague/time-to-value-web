@@ -110,7 +110,7 @@ The skill includes:
 ### Get the file
 *Place this into your Claude folder `.claude/skillls/espanso-manager/SKILL.MD`*
 
-<a href="/espanso_skill.txt" download="SKILL.MD" target="_blank">Download Link</a> 
+<a href="/claude-skills/espanso_skill.txt" download="SKILL.MD" target="_blank">Download Link</a> 
 
 
 ---
