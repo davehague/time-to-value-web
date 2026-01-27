@@ -1,0 +1,153 @@
+---
+name: update-docs
+description: Use after completing features or fixes to update CHANGELOG.md and project documentation. Keeps docs in sync with code changes.
+---
+
+# Documentation Update Skill
+
+Use this skill after completing a feature, fix, or significant change to ensure documentation stays current.
+
+## When to Use
+
+- After committing a user-facing feature or fix
+- After making changes that affect how users interact with the app
+- When asked to update documentation
+- Before creating a PR for significant changes
+
+## What to Update
+
+### 1. CHANGELOG.md (User-Facing Changes)
+
+Location: `CHANGELOG.md` (project root, or wherever your project keeps it)
+
+**Add entry for user-impacting changes:**
+
+```markdown
+## YYYY-MM-DD
+
+### Feature/Fix Name
+- **What changed**: Brief description of the user benefit
+- **How to use**: Any usage instructions if needed
+
+*Commits: abc1234, def5678*
+```
+
+**Guidelines:**
+- Write from the user's perspective (benefits, not implementation)
+- Group related commits under one heading
+- Include commit hashes for reference
+- Keep descriptions concise (1-2 sentences)
+- Skip internal refactors that don't affect users
+
+### 2. Feature Documentation
+
+Location: `docs/` (adapt to your project's documentation directory)
+
+**IMPORTANT:** Every CHANGELOG entry that describes a user-facing feature MUST have corresponding feature documentation. The CHANGELOG tells users *what changed*, while feature docs teach users *how to use it*. They serve different purposes and both need updating.
+
+**Update when:**
+- New feature adds UI or functionality
+- Existing feature behavior changes
+- New settings or options added
+
+**Customize this mapping for your project.** Map each area of your app to the doc that covers it:
+
+| Change area | Update doc |
+|-------------|-----------|
+| Authentication | `docs/auth.md` |
+| User interface | `docs/ui.md` |
+| API endpoints | `docs/api.md` |
+| Settings/config | `docs/settings.md` |
+| Core concepts | `docs/overview.md` |
+
+> **Adapt the table above.** Replace these examples with your actual feature areas and doc file paths. The pattern matters more than the specific entries - every feature area should map to a doc file so nothing falls through the cracks.
+
+**New docs:** If a feature doesn't fit existing categories, create a new `.md` file in your docs directory. Name it descriptively (e.g., `voice-input.md` for a voice feature). Add links to/from related docs.
+
+### 3. Technical Docs (Implementation Details)
+
+Location: `docs/tech/` (or wherever your project keeps technical documentation)
+
+**Update when:**
+- New API endpoints added
+- Database schema changes
+- New services or modules
+- Architecture changes
+- New environment variables
+
+**Organize by domain.** A suggested structure:
+
+```
+docs/tech/
+├── architecture.md          # System overview
+├── features/                # Feature-specific implementation docs
+├── frontend/                # UI patterns and conventions
+└── infrastructure/          # Database, deployment, dev setup
+```
+
+> **Adapt the structure above** to match your project. The key principle: technical docs mirror your codebase's domain boundaries. When you add a new subsystem, add a corresponding doc.
+
+### 4. CLAUDE.md (AI Context)
+
+Location: Project root
+
+**Update when:**
+- New major features that Claude should know about
+- New environment variables
+- New commands or scripts
+- Changes to project structure
+
+**Keep it concise** - link to detailed docs rather than duplicating.
+
+### 5. Implementation Plans (Move to Completed)
+
+Location: `docs/plans/` → `docs/plans/completed/`
+
+**After implementing a plan:**
+- Move the plan file to a `completed/` subdirectory
+- This keeps active plans separate from historical reference
+
+**Note:** Completed plans serve as historical documentation of design decisions and implementation details.
+
+## Checklist
+
+Before marking documentation complete:
+
+- [ ] CHANGELOG.md updated with user-facing changes
+- [ ] **For EACH CHANGELOG entry**: Corresponding feature doc updated
+  - Check your mapping table to identify which doc(s) need updating
+  - CHANGELOG = "what changed", feature docs = "how to use it"
+- [ ] Technical doc updated if implementation changed
+- [ ] CLAUDE.md updated if major new capability
+- [ ] Implementation plan moved to completed if applicable
+- [ ] Links between docs still work
+- [ ] No implementation details in user-facing docs
+
+**Verification step:** After adding a CHANGELOG entry, ask yourself: "If a user wanted to learn how to use this feature, where would they look?" That doc needs updating.
+
+## Example Workflow
+
+After implementing a "Voice Input" feature:
+
+1. **CHANGELOG.md**: Add entry under today's date
+   ```markdown
+   ### Voice Input
+   - **Microphone button**: Click to dictate messages using speech-to-text
+   *Commit: 4ca387f*
+   ```
+
+2. **Feature doc**: Add "Voice Input" section to the relevant feature doc
+
+3. **Tech doc**: Document the new composable/service if applicable
+
+4. **CLAUDE.md**: Skip if not a major architectural change
+
+## Setup
+
+To customize this skill for your project:
+
+1. **Map your features to docs**: Replace the example mapping table in Section 2 with your actual feature areas and doc paths
+2. **Set your doc locations**: Update the directory paths to match your project structure
+3. **Add your tech doc tree**: Replace the example structure in Section 3 with your actual technical documentation layout
+
+The more specific your mappings, the better Claude can keep the right docs in sync after each change.
