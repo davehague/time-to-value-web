@@ -173,5 +173,3 @@ Create `overview.md` and a doc per major feature area. These don't need to be co
 ## Try It and Let Me Know
 
 This pattern has changed how I think about documentation. It went from a post-shipping chore to something that happens automatically as part of building. If you try it, I'd love to hear how it works for your setup. Connect with me on [LinkedIn](https://www.linkedin.com/in/david-hague-developer/).
-
-If you're exploring AI-enhanced development workflows, check out what I'm building at [PromptBlocks](https://promptblocks.app).
