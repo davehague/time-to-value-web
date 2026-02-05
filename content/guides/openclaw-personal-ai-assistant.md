@@ -53,8 +53,8 @@ No coding experience required. I'll explain everything as we go.
 Docker runs OpenClaw in an isolated container on your computer, like a secure sandbox.
 
 1. Download and install Docker Desktop:
-   - [Install Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
-   - [Install Docker Desktop for Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
+   - <a href="https://docs.docker.com/desktop/setup/install/mac-install/" target="_blank">Install Docker Desktop for Mac</a>
+   - <a href="https://docs.docker.com/desktop/setup/install/windows-install/" target="_blank">Install Docker Desktop for Windows</a>
 
 2. Open Docker Desktop and accept the license agreement
 
@@ -66,21 +66,21 @@ OpenRouter is your gateway to AI models. Instead of signing up separately with O
 
 ![OpenRouter setup steps](/guides/openclaw/openrouter-setup.png)
 
-1. **Sign up** at [openrouter.ai](https://openrouter.ai/)
-2. **Add credits** at [openrouter.ai/settings/credits](https://openrouter.ai/settings/credits) ($5-10 will last a long time)
-3. **Create an API key** at [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys). Give it a name like "OpenClaw" and copy it immediately. It starts with `sk-or-` and you'll only see it once.
+1. **Sign up** at <a href="https://openrouter.ai/" target="_blank">openrouter.ai</a>
+2. **Add credits** at <a href="https://openrouter.ai/settings/credits" target="_blank">openrouter.ai/settings/credits</a> ($5-10 will last a long time)
+3. **Create an API key** at <a href="https://openrouter.ai/settings/keys" target="_blank">openrouter.ai/settings/keys</a>. Give it a name like "OpenClaw" and copy it immediately. It starts with `sk-or-` and you'll only see it once.
 
 Save your API key somewhere safe. You'll need it shortly.
 
-Browse available models: [ChatGPT](https://openrouter.ai/models?arch=GPT) | [Claude](https://openrouter.ai/models?arch=Claude) | [Gemini](https://openrouter.ai/models?arch=Gemini) | [All models](https://openrouter.ai/models)
+Browse available models: <a href="https://openrouter.ai/models?arch=GPT" target="_blank">ChatGPT</a> | <a href="https://openrouter.ai/models?arch=Claude" target="_blank">Claude</a> | <a href="https://openrouter.ai/models?arch=Gemini" target="_blank">Gemini</a> | <a href="https://openrouter.ai/models" target="_blank">All models</a>
 
 ---
 
 ## Download the Project
 
-Download [openclaw-docker.zip](https://github.com/davehague/openclaw-docker/archive/refs/heads/main.zip)
+Download <a href="https://github.com/davehague/openclaw-docker/archive/refs/heads/main.zip" target="_blank">openclaw-docker.zip</a>
 
-(Technical users: the [GitHub repository](https://github.com/davehague/openclaw-docker) is available if you prefer to clone it.)
+(Technical users: the <a href="https://github.com/davehague/openclaw-docker" target="_blank">GitHub repository</a> is available if you prefer to clone it.)
 
 ### Extract and Place the Files
 
@@ -127,7 +127,7 @@ We'll fill these in as we create the Slack app.
 
 ### Create a Slack App
 
-1. Go to [api.slack.com/apps](https://api.slack.com/apps)
+1. Go to <a href="https://api.slack.com/apps" target="_blank">api.slack.com/apps</a>
 2. Click **Create New App**
 
 ![Create New App button](/guides/openclaw/slack-create-app.png)
@@ -367,6 +367,6 @@ Now that your AI assistant is set up, here are some things to try:
 - **Ask it to search the web.** "What's the latest news about [topic]?"
 - **Share a folder** and ask it to summarize a document.
 - **Change AI models.** Edit the `OPENCLAW_MODEL` line in `.env` to try Claude, GPT-4, or Gemini.
-- **Explore skills.** Check out the [OpenClaw skills documentation](https://docs.openclaw.ai/tools/skills) to see available plugins.
+- **Explore skills.** Check out the <a href="https://docs.openclaw.ai/tools/skills" target="_blank">OpenClaw skills documentation</a> to see available plugins.
 
 Enjoy your new AI coworker!
