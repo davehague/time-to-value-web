@@ -193,7 +193,8 @@ This lets you DM your bot without an approval process:
 ![Copy member ID from profile](/guides/openclaw/slack-profile.png)
 
 5. Paste it into your `.env` file as the value for `SLACK_ALLOWED_USERS`
-6. Save and close the `.env` file
+6. Make sure all Slack lines are uncommented by removing the `#` and spaces at the front of the line (see screenshot below)
+7. Save and close the `.env` file
 
 ![.env file with Slack tokens filled in](/guides/openclaw/slack-tokens-filled-env.png)
 
@@ -214,7 +215,7 @@ Now we need to run some commands. You can click the copy icon on any code block 
 2. Click in the address bar at the top
 3. Type `powershell` and press Enter
 
-![Windows address bar with powershell typed](/guides/openclaw/windows-powershell-address-bar.png)
+![Windows address bar with powershell typed](/guides/openclaw/powershell-openclaw.png)
 
 ### Run the Setup Wizard
 
@@ -245,7 +246,7 @@ The wizard will ask several questions. Here's how to answer:
 
 ![Terminal with choices](/guides/openclaw/terminal-with-choices.png)
 
-The setup will download some files. This may take a few minutes depending on your internet speed.
+The setup will download and extract Docker container files. This may take a few minutes depending on your internet speed.
 
 ### Start OpenClaw
 
