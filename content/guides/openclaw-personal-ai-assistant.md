@@ -217,6 +217,12 @@ Now we need to run some commands. You can click the copy icon on any code block 
 
 ![Windows address bar with powershell typed](/guides/openclaw/powershell-openclaw.png)
 
+**Windows note:** If you see "running scripts is disabled", open PowerShell as Administrator and run:
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+Then close and reopen PowerShell in your openclaw-docker folder.
+
 ### Run the Setup Wizard
 
 **Mac:**
