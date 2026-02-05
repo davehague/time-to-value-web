@@ -74,12 +74,7 @@ const copyCode = async () => {
   border-radius: 0.375rem;
   background-color: rgba(55, 65, 81, 0.5);
   color: rgb(209, 213, 219);
-  opacity: 0;
-  transition: opacity 0.2s, background-color 0.2s, color 0.2s;
-}
-
-.code-block-wrapper:hover .copy-button {
-  opacity: 1;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .copy-button:hover {
