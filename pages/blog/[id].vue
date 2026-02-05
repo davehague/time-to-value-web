@@ -1,61 +1,52 @@
 <template>
-    <div class="min-h-screen bg-gray-50">
-        <NavHeader />
-        <article v-if="post" class="container mx-auto px-6 py-20 pt-28 max-w-4xl">
-            <header class="mb-12">
-                <NuxtLink to="/blog" class="inline-flex items-center text-brand-blue hover:text-brand-dark transition-colors mb-6">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    <ArticleWithSidebar
+        :document="post"
+        :back-link="{ to: '/blog', label: 'Back to Blog' }"
+    >
+        <template #header>
+            <h1 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-4">
+                {{ post?.title }}
+            </h1>
+
+            <p class="text-lg text-gray-600 font-opensans leading-relaxed mb-6">
+                {{ post?.description }}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                <div v-if="post?.author" class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    Back to Blog
-                </NuxtLink>
-
-                <h1 class="text-3xl md:text-4xl font-inter font-bold text-brand-dark mb-4">
-                    {{ post.title }}
-                </h1>
-
-                <p class="text-lg text-gray-600 font-opensans leading-relaxed mb-6">
-                    {{ post.description }}
-                </p>
-
-                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                    <div v-if="post.author" class="flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        {{ post.author }}
-                    </div>
-
-                    <div v-if="post.publishedAt" class="flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        {{ formatDate(post.publishedAt) }}
-                    </div>
-
-                    <div v-if="post.updatedAt && post.updatedAt !== post.publishedAt" class="flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        Updated {{ formatDate(post.updatedAt) }}
-                    </div>
+                    {{ post.author }}
                 </div>
 
-                <div v-if="post.tags && post.tags.length > 0" class="flex flex-wrap gap-2 mt-4">
-                    <span
-                        v-for="tag in post.tags"
-                        :key="tag"
-                        class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-sm rounded-full"
-                    >
-                        {{ tag }}
-                    </span>
+                <div v-if="post?.publishedAt" class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {{ formatDate(post.publishedAt) }}
                 </div>
-            </header>
 
-            <div class="prose prose-base max-w-none">
-                <ContentRenderer :value="post" />
+                <div v-if="post?.updatedAt && post.updatedAt !== post.publishedAt" class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Updated {{ formatDate(post.updatedAt) }}
+                </div>
             </div>
 
+            <div v-if="post?.tags && post.tags.length > 0" class="flex flex-wrap gap-2 mt-4">
+                <span
+                    v-for="tag in post.tags"
+                    :key="tag"
+                    class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-sm rounded-full"
+                >
+                    {{ tag }}
+                </span>
+            </div>
+        </template>
+
+        <template #footer>
             <!-- Soft CTA -->
             <GuideCTA />
 
@@ -68,9 +59,9 @@
                     All Articles
                 </NuxtLink>
             </div>
-        </article>
+        </template>
 
-        <div v-else class="container mx-auto px-6 py-20 pt-28 text-center">
+        <template #not-found>
             <h1 class="text-3xl font-inter font-bold text-brand-dark mb-4">Article Not Found</h1>
             <p class="text-gray-600 mb-8">The article you're looking for doesn't exist or has been moved.</p>
             <NuxtLink to="/blog" class="inline-flex items-center text-brand-blue hover:text-brand-dark transition-colors">
@@ -79,9 +70,8 @@
                 </svg>
                 Back to Blog
             </NuxtLink>
-        </div>
-        <FooterSection />
-    </div>
+        </template>
+    </ArticleWithSidebar>
 </template>
 
 <script setup lang="ts">
