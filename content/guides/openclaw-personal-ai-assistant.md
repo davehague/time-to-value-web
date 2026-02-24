@@ -13,7 +13,7 @@ OpenClaw is incredibly flexible. You can connect it to different AI providers, i
 
 That's why I created this (opinionated) setup package that makes OpenClaw dead simple to get running. With my configuration, you get:
 
-- **Model flexibility via OpenRouter.** Switch between Claude, ChatGPT, Gemini, and dozens of other AI models on the fly (including recently released models), all through a single API key.
+- **Model flexibility via OpenRouter.** Switch between Claude, ChatGPT, Gemini, Grok, and dozens of other AI models on the fly (including recently released models), all through a single API key.
 - **Slack as your interface.** Chat with your AI assistant right where you already work, instead of juggling another app.
 - **Simple scripts.** Start, stop, and update with simple, singular commands.
 - **All local and secure.** Your conversations and files stay on your computer. Only you can talk to the bot.
@@ -373,7 +373,7 @@ Now that your AI assistant is set up, here are some things to try:
 
 - **Ask it to search the web.** "What's the latest news about [topic]?"
 - **Share a folder** and ask it to summarize a document.
-- **Change AI models.** Edit the `OPENCLAW_MODEL` line in `.env` to try Claude, GPT-4, or Gemini.
+- **Change AI models.** Edit the `OPENCLAW_MODEL` line in `.env` to try Grok, Claude, GPT-4, or Gemini.
 - **Explore skills.** Check out the <a href="https://docs.openclaw.ai/tools/skills" target="_blank">OpenClaw skills documentation</a> to see available plugins.
 
 Enjoy your new AI coworker!
