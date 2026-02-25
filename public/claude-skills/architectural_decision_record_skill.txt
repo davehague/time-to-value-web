@@ -1,0 +1,116 @@
+---
+name: adr
+description: Create Architectural Decision Records to document significant technical decisions. Use this skill after discussing, brainstorming, or deciding on new features, architecture changes, technology choices, dependency selections, API designs, data storage approaches, security patterns, or any decision that will have lasting impact on the codebase. Creates markdown ADRs in docs/adr/ with proper naming conventions and structure.
+---
+
+# Architectural Decision Records
+
+Create ADRs to document significant technical decisions along with their context, alternatives considered, and consequences.
+
+## When to Create an ADR
+
+Create an ADR after the conversation involves:
+
+- **Architecture changes** - New patterns, service boundaries, component restructuring
+- **Technology choices** - Frameworks, languages, platforms, libraries
+- **Data decisions** - Database selection, schema design, storage patterns
+- **API design** - Interface contracts, versioning strategies, authentication approaches
+- **Dependencies** - Adding significant libraries or external services
+- **Security approaches** - Auth mechanisms, encryption strategies, access control
+- **Infrastructure** - Deployment patterns, scaling strategies, environment setup
+- **Non-functional requirements** - Performance tradeoffs, availability vs consistency
+- **Integration patterns** - How systems communicate, event-driven vs request/response
+- **Build/tooling** - CI/CD choices, testing frameworks, development workflows
+
+**Don't create ADRs for:** Routine implementation details, obvious choices with no alternatives, temporary solutions clearly marked as such.
+
+## Triggering Behavior
+
+When a conversation concludes with a clear technical decision, proactively suggest creating an ADR. Phrases like "let's go with X" or "I think we should use Y" after discussing tradeoffs indicate a decision worth recording.
+
+Example prompt: "Would you like me to create an ADR documenting this decision to use PostgreSQL over MongoDB?"
+
+## File Location and Naming
+
+Store ADRs in `docs/adr/` relative to the project root.
+
+Naming convention: `NNNN-short-title-with-dashes.md`
+- NNNN = sequential 4-digit number (0001, 0002, etc.)
+- Use lowercase with dashes
+- Keep titles short but descriptive
+
+Before creating a new ADR, check existing files to determine the next sequence number:
+```bash
+ls docs/adr/*.md 2>/dev/null | sort | tail -1
+```
+
+## ADR Template
+
+```markdown
+# NNNN. Title in Imperative Form
+
+**Date:** YYYY-MM-DD
+
+**Status:** Proposed | Accepted | Deprecated | Superseded by [NNNN]
+
+## Context
+
+Describe the situation and forces at play. What problem are we solving? What constraints exist? 2-3 sentences of background, written so someone unfamiliar with the discussion can understand.
+
+## Decision
+
+State the decision clearly and concisely. Use active voice: "We will use X" not "X was chosen."
+
+## Rationale
+
+Explain why this option was chosen over alternatives. Include:
+- Key factors that influenced the decision
+- How this addresses the context/problem
+- Why alternatives were rejected (briefly)
+
+## Alternatives Considered
+
+### Alternative 1: [Name]
+
+Brief description and why it was rejected.
+
+### Alternative 2: [Name]
+
+Brief description and why it was rejected.
+
+## Consequences
+
+### Benefits
+
+- What improves as a result of this decision
+- Capabilities gained
+
+### Drawbacks
+
+- What tradeoffs we're accepting
+- Limitations we're living with
+- Technical debt incurred
+
+### Follow-up Actions
+
+- Any immediate tasks required to implement
+- Future decisions this enables or requires
+```
+
+## Writing Guidelines
+
+- **Keep it concise** - ADRs should be scannable, not design documents
+- **Use imperative titles** - "Use PostgreSQL for user data" not "PostgreSQL was selected"
+- **Be specific about tradeoffs** - Vague consequences aren't useful for future readers
+- **Include the "why not"** - Rejected alternatives with reasoning prevent re-litigation
+- **Date everything** - Decisions age; context matters
+- **One decision per ADR** - If you're documenting multiple decisions, split them
+
+## Status Lifecycle
+
+- **Proposed** - Under discussion, not yet agreed
+- **Accepted** - Team has agreed, implementation can proceed
+- **Deprecated** - No longer relevant but kept for history
+- **Superseded by [NNNN]** - Replaced by a newer decision; link to it
+
+When superseding an ADR, update the old one's status AND reference it in the new one's Context section.
