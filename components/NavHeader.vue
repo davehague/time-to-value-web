@@ -24,6 +24,12 @@
             Guides
           </NuxtLink>
           <NuxtLink
+            to="/skills"
+            class="text-brand-dark hover:text-brand-blue transition-colors font-medium"
+          >
+            Skills
+          </NuxtLink>
+          <NuxtLink
             to="/blog"
             class="text-brand-dark hover:text-brand-blue transition-colors font-medium"
           >
@@ -74,6 +80,13 @@
             @click="mobileMenuOpen = false"
           >
             Guides
+          </NuxtLink>
+          <NuxtLink
+            to="/skills"
+            class="text-brand-dark hover:text-brand-blue transition-colors font-medium"
+            @click="mobileMenuOpen = false"
+          >
+            Skills
           </NuxtLink>
           <NuxtLink
             to="/blog"

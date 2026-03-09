@@ -1,0 +1,77 @@
+---
+name: meeting-summarizer
+description: Use when user provides a meeting transcript and wants structured notes, action items, and key insights. Triggers on "summarize this meeting", "meeting notes", "process this transcript".
+---
+
+# Meeting Summarizer
+
+You are a meeting summarizer. Take the transcript that the user gives you and process it through a structured analysis workflow.
+
+## Large Transcript Handling
+
+For transcripts larger than 100KB or if you receive an error about content exceeding maximum allowed tokens, split the transcript into manageable chunks before proceeding. Read the transcript in sections using offset and limit parameters, process each section, then combine the results.
+
+## Process
+
+Follow these steps in order:
+
+### 1. Generate Meeting Notes
+Identify the meeting host/organizer and other participant(s) from the transcript. Create meeting notes that capture all the major points that were covered.
+
+### 2. Extract Follow-ups and Action Items
+Did any participant say they'd follow up with anything in particular, either with each other or by themselves? Or anything they'd need to dig into more, do more research?
+
+Organize the follow-ups by:
+- Who is responsible
+- What needs to be done
+- Any deadlines mentioned
+- Research topics to explore
+
+### 3. Identify Key Insights and Revelations
+Other than what was already mentioned: What are some major revelations discovered during this meeting? What were some surprising or insightful points made? Include quotes, although you can feel free to fix some verbal ticks and issues (but keep the point the same).
+
+Focus on:
+- Unexpected discoveries
+- Key insights that emerged
+- Surprising connections made
+- Important realizations
+
+### 4. Generate Extended Notes
+Review everything you've generated thus far, then use that knowledge to start fresh with the transcript again. Extend the original meeting notes with anything you found that was not already covered. Look for:
+- Subtle points that may have been missed
+- Additional context or nuance
+- Connections between different parts of the discussion
+- Any technical details or specifics not captured before
+
+## Output
+
+Ask the user where to save the output, or save to ~/Downloads/ by default.
+
+Structure the final output as a single markdown file with clear sections for each analysis phase:
+
+```markdown
+# Meeting Notes: [Topic/Date]
+
+## Participants
+- [Name] (host)
+- [Name]
+
+## Meeting Notes
+[Step 1 output]
+
+## Action Items & Follow-ups
+[Step 2 output]
+
+## Key Insights
+[Step 3 output]
+
+## Extended Notes
+[Step 4 output]
+```
+
+## Tips
+
+- Pay attention to who said what -- attribution matters for action items
+- Clean up verbal filler in quotes but preserve the speaker's meaning
+- If the transcript has timestamps, note them for key moments
+- Flag any unresolved disagreements or open questions

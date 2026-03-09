@@ -1,0 +1,92 @@
+---
+name: copilot-plan
+description: "Parallel planning: run a second AI model alongside Claude Code to generate competing implementation plans. Compare and pick the best approach."
+---
+
+# Parallel AI Planning — Competing Plans Comparison
+
+Generate implementation plans from two AI models in parallel, then compare and combine the best ideas.
+
+## When to Use
+
+- When planning a new feature or significant change
+- When you want to compare approaches from different models
+- After brainstorming, as an alternative to going straight to a single plan
+
+## How It Works
+
+1. Takes a feature description or design doc
+2. Launches a second AI (e.g., GitHub Copilot CLI, OpenAI API, or another tool) in the background
+3. Meanwhile, Claude Code generates its own plan
+4. Presents both plans side by side for comparison
+
+## Process
+
+### Step 1: Gather the Brief
+
+Ask the user for:
+- **What to build** — feature description, design doc path, or issue number
+- **Project context** — which repo/directory, tech stack
+- **Constraints** — any must-haves or limitations
+- **Second model** — which tool to use (default: GitHub Copilot CLI)
+
+### Step 2: Launch Second Model Planning in Background
+
+For GitHub Copilot CLI:
+```bash
+# Adjust this command for your second model tool
+echo "<brief>" | gh copilot suggest -t shell "Create an implementation plan for: <brief>" > /tmp/copilot-plan.md &
+```
+
+For other tools, adapt the command accordingly (OpenAI CLI, local model, etc.).
+
+### Step 3: Generate Claude Code Plan
+
+While the second model runs, create your own implementation plan:
+- Bite-sized tasks (2-5 min each)
+- Exact file paths and complete code
+- TDD approach where applicable
+- DRY, YAGNI
+
+### Step 4: Present Comparison
+
+Once both are complete:
+
+```markdown
+## Plan A: [Second Model Name]
+[Their plan]
+
+## Plan B: Claude Code
+[Your plan]
+
+## Comparison
+| Aspect | [Second Model] | Claude Code |
+|--------|---------------|-------------|
+| Architecture | ... | ... |
+| Task breakdown | ... | ... |
+| Testing strategy | ... | ... |
+| Estimated steps | ... | ... |
+| Unique insights | ... | ... |
+
+## Recommendation
+[Which plan or which elements from each to combine]
+```
+
+### Step 5: User Picks
+
+The user chooses Plan A, Plan B, or a hybrid. Save the chosen plan and proceed to implementation.
+
+## Supported Second Models
+
+| Tool | Command | Notes |
+|------|---------|-------|
+| GitHub Copilot CLI | `gh copilot suggest` | Requires Copilot subscription |
+| OpenAI CLI | `openai api chat.completions.create` | Requires OpenAI API key |
+| Local model (Ollama) | `ollama run <model>` | Free, runs locally |
+| Any CLI tool | Adapt the background command | Any tool that accepts text input |
+
+## Setup
+
+1. Install your preferred second model CLI tool
+2. Configure authentication (API keys, tokens, etc.)
+3. Update the background command in Step 2 to match your tool

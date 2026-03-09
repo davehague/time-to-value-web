@@ -1,0 +1,107 @@
+---
+name: send-slack-message
+description: Use when any skill or workflow needs to post a message to Slack - triggers on "send to Slack", "post to Slack", "Slack message", or when another skill references sending to Slack as a final step
+---
+
+# Send Slack Message
+
+## Overview
+
+Posts a formatted message to a named Slack channel using the Slack API. Designed to be called by other skills as a final delivery step.
+
+**Core principle:** Look up channel by name -> Format message for Slack -> Post via API -> Confirm delivery
+
+## Setup
+
+### 1. Create a Slack bot
+
+Go to https://api.slack.com/apps and create a new app. Under "OAuth & Permissions", add the `chat:write` scope. Install the app to your workspace and copy the Bot User OAuth Token.
+
+### 2. Configure the token and channel map
+
+Create a config file at `~/.claude/slack-config.env`:
+
+```bash
+SLACK_BOT_TOKEN=xoxb-YOUR-BOT-TOKEN
+
+# Channel map - add new channels as "SLACK_CHANNEL_<NAME>=<ID>"
+# Find channel IDs in the Slack URL or channel details panel
+SLACK_CHANNEL_GENERAL=C0XXXXXXXXX
+SLACK_CHANNEL_MY_CHANNEL=C0XXXXXXXXX
+```
+
+To add a new channel: open `~/.claude/slack-config.env` and add a line like `SLACK_CHANNEL_MY_CHANNEL=C0XXXXXXXX`. The channel ID is in the Slack URL or channel details.
+
+### 3. Invite the bot to channels
+
+In each Slack channel you want to post to, run `/invite @YourBotName`.
+
+## Usage
+
+When called from another skill or directly, you need:
+1. **Channel name** - a friendly name that maps to the config (e.g., "my-channel" maps to `SLACK_CHANNEL_MY_CHANNEL`)
+2. **Message content** - the text to post, either raw or pre-formatted for Slack
+
+If no channel is specified, ask the user which channel to use.
+
+## Channel Name Resolution
+
+Convert the friendly name to the env var key:
+- "my-channel" -> `SLACK_CHANNEL_MY_CHANNEL`
+- "general" -> `SLACK_CHANNEL_GENERAL`
+- Pattern: uppercase, replace hyphens/spaces with underscores, prefix with `SLACK_CHANNEL_`
+
+## Formatting Markdown for Slack
+
+Convert standard markdown to Slack mrkdwn before posting:
+
+| Markdown | Slack |
+|----------|-------|
+| `# Heading` | `*Heading*` (bold) |
+| `## Heading` | `*Heading*` (bold) |
+| `**bold**` | `*bold*` |
+| `_italic_` | `_italic_` (same) |
+| `[text](url)` | `<url\|text>` |
+| `- bullet` | `• bullet` |
+
+Also:
+- Add relevant emojis for section headers (e.g., `:calendar:`, `:star:`, `:warning:`)
+- Use `\n` for newlines in the JSON payload
+- Set `unfurl_links: true` so URLs show previews
+
+## Posting
+
+```bash
+source ~/.claude/slack-config.env
+
+# Resolve channel name to ID
+CHANNEL_VAR="SLACK_CHANNEL_<RESOLVED_NAME>"
+CHANNEL_ID="${!CHANNEL_VAR}"
+
+# Post message (MESSAGE must be JSON-escaped)
+JSON_MESSAGE=$(echo "$MESSAGE" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read()))")
+
+curl -s -X POST https://slack.com/api/chat.postMessage \
+  -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{\"channel\": \"$CHANNEL_ID\", \"text\": $JSON_MESSAGE, \"unfurl_links\": true}"
+```
+
+## Verifying Delivery
+
+Check the API response:
+- `"ok": true` = success, confirm to user
+- `"ok": false` = check `"error"` field. Common errors:
+  - `channel_not_found` - wrong channel ID in config
+  - `not_in_channel` - bot needs to be invited to the channel
+  - `invalid_auth` - token expired or wrong
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Posting raw markdown | Convert to Slack mrkdwn format first |
+| Hardcoding channel IDs | Always use the config file lookup |
+| Not escaping JSON | Use python3 json.dumps for proper escaping |
+| Missing bot in channel | Tell user to invite the bot: `/invite @YourBotName` |
+| Token in git repo | Tokens live in `~/.claude/slack-config.env` only, never in project files |

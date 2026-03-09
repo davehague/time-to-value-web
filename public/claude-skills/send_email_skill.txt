@@ -1,0 +1,145 @@
+---
+name: send-email
+description: Use when any skill or workflow needs to send an email - triggers on "send email", "email this to", "email someone", or when another skill references emailing as a delivery step. Supports plain text, HTML, and markdown formats with CC/BCC.
+---
+
+# Send Email
+
+## Overview
+
+Sends emails via Mailjet using a Python script. Supports plain text, HTML, and markdown (auto-converted to styled HTML). Designed to be called by other skills or directly.
+
+This skill uses Mailjet as the email provider, but the pattern could be adapted to SendGrid, AWS SES, or any transactional email API.
+
+## Setup
+
+### 1. Install the email sender script
+
+Clone or create a Python script that sends emails via the Mailjet API. The script should accept command-line arguments for recipient, subject, and body content.
+
+A minimal implementation needs:
+- `mailjet_rest` Python package (`pip install mailjet-rest`)
+- A `.env` file with your credentials
+- Support for `--to`, `--subject`, `--body`, `--html`, `--markdown`, and `--markdown-file` flags
+
+### 2. Configure credentials
+
+Create a `.env` file in your script's directory:
+
+```
+MAILJET_API_KEY=YOUR_MAILJET_API_KEY
+MAILJET_API_SECRET=YOUR_MAILJET_API_SECRET
+SENDER_EMAIL=your-verified-sender@example.com
+SENDER_NAME=Your Name
+DEFAULT_RECIPIENT_EMAIL=your-default-recipient@example.com
+```
+
+Sign up at https://www.mailjet.com (free tier: 200 emails/day). Verify your sender address in the Mailjet dashboard.
+
+### 3. Set the script path
+
+Update the paths below to match your setup:
+
+```
+SCRIPT_DIR: YOUR_PATH/scripts/email_sender
+SCRIPT_NAME: send_email.py
+```
+
+## Usage
+
+**Always run from the script's directory** (so it can find its imports and .env):
+
+```bash
+cd YOUR_PATH/scripts/email_sender && \
+python3 send_email.py \
+  --to "recipient@example.com" \
+  --subject "Subject" \
+  --body "Plain text content"
+```
+
+## Quick Reference
+
+| Format | Flag | Notes |
+|--------|------|-------|
+| Plain text | `--body "text"` | Simple text email |
+| HTML | `--html "<h1>Hi</h1>"` | Raw HTML |
+| Markdown | `--markdown "## Heading"` | Auto-converts to styled HTML |
+| Markdown file | `--markdown-file /path/to/file.md` | Best for long content |
+
+| Option | Flag | Example |
+|--------|------|---------|
+| Multiple recipients | `--to` | `"a@x.com,b@x.com"` |
+| CC | `--cc` | `"cc@x.com"` |
+| BCC | `--bcc` | `"bcc@x.com"` |
+| Override sender | `--from` | `"other@example.com"` |
+| Override sender name | `--from-name` | `"Other Name"` |
+
+## Examples
+
+**Simple email:**
+```bash
+cd YOUR_PATH/scripts/email_sender && \
+python3 send_email.py \
+  --to "recipient@example.com" \
+  --subject "Test" \
+  --body "Hello from Claude!"
+```
+
+**Markdown email (best for skill output):**
+```bash
+cd YOUR_PATH/scripts/email_sender && \
+python3 send_email.py \
+  --to "recipient@example.com" \
+  --subject "Weekly Digest" \
+  --markdown "## This Week\n\n- Item 1\n- Item 2\n\n**Bold text** and [links](https://example.com) work."
+```
+
+**From a markdown file (best for long content):**
+```bash
+cd YOUR_PATH/scripts/email_sender && \
+python3 send_email.py \
+  --to "recipient@example.com" \
+  --subject "Report" \
+  --markdown-file /tmp/report.md
+```
+
+## For Long Content
+
+For messages with special characters, newlines, or multi-paragraph content, write to a temp file first:
+
+```bash
+# Write content to temp file
+cat > /tmp/email_body.md << 'EOF'
+## Weekend Plan
+
+- **Event 1** - Details here
+- **Event 2** - More details
+
+[Link to info](https://example.com)
+EOF
+
+cd YOUR_PATH/scripts/email_sender && \
+python3 send_email.py \
+  --to "recipient@example.com" \
+  --subject "Weekend Plan" \
+  --markdown-file /tmp/email_body.md
+```
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Running from wrong directory | Always `cd` to the email_sender directory first |
+| Unverified sender address | Verify in Mailjet dashboard before using `--from` |
+| Special chars in --markdown | Use `--markdown-file` with a temp file instead |
+| No content flag | Must provide one of `--body`, `--html`, `--markdown`, or `--markdown-file` |
+| Sending without asking user | Always confirm recipient and content before sending |
+
+## Integration with Other Skills
+
+Any skill can reference this as a delivery step. Examples:
+- A digest skill can email its output
+- A meeting summarizer can email notes to attendees
+- A daily report skill can email the summary
+
+When combining skills, use `--markdown-file` with a temp file for the cleanest results.

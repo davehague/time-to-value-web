@@ -1,0 +1,109 @@
+---
+name: notebooklm-query
+description: "Query NotebookLM notebooks through Claude Code with improved query handling, follow-up chains, and source filtering. Requires the nlm CLI tool."
+---
+
+# NotebookLM Query
+
+Query Google NotebookLM notebooks through Claude Code with smarter query handling than the default MCP/CLI experience.
+
+## Prerequisites
+
+- The `nlm` CLI tool must be installed and authenticated
+- At least one NotebookLM notebook must exist with sources added
+
+## When to Use
+
+- When researching a topic you have NotebookLM notebooks about
+- When you want to query your curated knowledge base from the terminal
+- When you need to cross-reference information across multiple sources in a notebook
+
+## Process
+
+### Step 1: Identify the Notebook
+
+List available notebooks:
+```bash
+nlm notebook list
+```
+
+Ask the user which notebook to query, or infer from context if the topic makes it obvious.
+
+### Step 2: Run the Query
+
+**Important:** Pass the user's query to NotebookLM as close to verbatim as possible. The backend responds better to natural language questions than to restructured or overly formal prompts.
+
+```bash
+nlm notebook query --notebook-id <id> --query "<user's question, verbatim>"
+```
+
+**Do NOT:**
+- Rephrase the query into a more "structured" format
+- Break a single question into multiple sub-queries upfront
+- Add prompt engineering to the query string
+
+**Do:**
+- Pass the question as the user asked it
+- Let NotebookLM's backend handle the interpretation
+- Add context only if the user's question is ambiguous without it
+
+### Step 3: Present Results
+
+Format the response clearly:
+- Lead with the direct answer
+- Include relevant quotes from sources with attribution
+- Note which sources contributed to the answer
+- Flag any gaps or areas where the notebook's sources don't cover the question
+
+### Step 4: Follow-Up Queries
+
+After presenting results, offer follow-up options:
+- "Want me to dig deeper on any of these points?"
+- "Should I query from a different angle?"
+
+For follow-up queries, chain them — use context from previous answers to refine the next question. This produces better results than isolated queries.
+
+```bash
+# Follow-up with context from previous answer
+nlm notebook query --notebook-id <id> --query "<follow-up question incorporating previous context>"
+```
+
+## Source Filtering
+
+If the user wants to query specific sources within a notebook:
+
+```bash
+# List sources in a notebook
+nlm source list --notebook-id <id>
+
+# Query can reference specific sources by mentioning them in the query text
+nlm notebook query --notebook-id <id> --query "Based on <source name>, <question>"
+```
+
+Use source filtering when:
+- The notebook has many sources and the user wants information from specific ones
+- Results are too broad and need narrowing
+- The user mentions a specific document, article, or source by name
+
+## Multiple Notebooks
+
+If the user's question spans multiple topics:
+1. Identify which notebooks are relevant
+2. Query each one separately
+3. Synthesise the results into a unified answer
+4. Note which notebook each piece of information came from
+
+## Known Limitations
+
+- **Query length**: Very long queries may be truncated. Keep queries focused.
+- **Source freshness**: NotebookLM sources are point-in-time snapshots. If the user asks about recent events, note that the sources may not be current.
+- **Response length**: Some answers may be truncated. If a response seems incomplete, run a follow-up query targeting the specific missing piece.
+- **Rate limits**: The API may rate-limit rapid successive queries. If you hit a limit, wait a moment before retrying.
+- **Authentication**: If queries fail, the user may need to re-authenticate with `nlm auth`.
+
+## Tips for Better Results
+
+1. **Verbatim queries get better answers** — the backend is tuned for natural language
+2. **Follow-up chains beat shotgun queries** — one good question followed by refinement beats five questions at once
+3. **Name sources when you can** — "What does the McKinsey report say about..." beats "What do the sources say about..."
+4. **Ask for comparisons** — "How does source A's view on X differ from source B's?" works well

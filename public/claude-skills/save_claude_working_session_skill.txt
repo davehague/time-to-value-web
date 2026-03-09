@@ -1,0 +1,100 @@
+---
+name: save-claude-working-session
+description: "Save a structured summary of the current Claude Code working session to a markdown file. Use when switching projects, ending a session, or before restarting."
+---
+
+# Save Claude Working Session
+
+Preserve context from the current Claude Code session by writing a structured summary to a markdown file. Use this when you need to capture what you were working on before switching context or restarting.
+
+## Configuration
+
+**Set your output directory below:**
+
+```
+OUTPUT_DIR: ~/notes/claude-sessions
+```
+
+This can be any directory that stores markdown files — an Obsidian vault, a notes folder, a docs directory, wherever you keep reference material.
+
+**To share this skill:** Recipients only need to update the path above.
+
+## When to Use
+
+- Before restarting your machine with multiple Claude Code sessions open
+- When switching between projects and want to capture current state
+- At the end of a working session to log progress
+- When you want a bird's-eye view of everything in flight
+
+## Process
+
+### Step 1: Gather Session Context
+
+Review the current conversation to identify:
+- **What was being worked on** — the main task or feature
+- **Current status** — where things stand right now
+- **Key decisions made** — any important choices or trade-offs
+- **Open questions** — unresolved issues or blockers
+- **Next steps** — what to do when resuming
+
+### Step 2: Determine the File
+
+Use the current date and a descriptive slug:
+
+```
+$OUTPUT_DIR/YYYY-MM-DD-<project-or-task-slug>.md
+```
+
+If the file already exists (multiple sessions saved on the same day), append to it with a new timestamped entry.
+
+### Step 3: Write the Entry
+
+Each entry follows this format:
+
+```markdown
+## Session: HH:MM — <Brief Title>
+
+**Project:** <project name or repo>
+**Branch:** <git branch if applicable>
+**Working directory:** <path>
+
+### What I Was Doing
+<1-3 sentences describing the task>
+
+### Current Status
+- <bullet points of where things stand>
+
+### Key Decisions
+- <any decisions made during the session>
+
+### Open Questions
+- <unresolved issues or things to investigate>
+
+### Next Steps
+- [ ] <actionable items to resume from>
+
+### Files Changed
+- `path/to/file.ts` — <what changed>
+- `path/to/other.ts` — <what changed>
+
+---
+```
+
+### Step 4: Confirm
+
+After writing, confirm the file path and give a one-line summary of what was saved.
+
+## Important Notes
+
+- **Be specific about next steps.** "Continue working on the feature" is useless. "Wire up the onClick handler in Button.vue to call the submitForm API" is useful.
+- **Include file paths.** Future-you needs to know exactly where to look.
+- **Capture the git branch.** Run `git branch --show-current` to get it.
+- **List changed files.** Run `git status` or `git diff --name-only` to get the list.
+- **Don't over-document.** This is a breadcrumb trail, not a design doc. Keep entries scannable.
+- **If appending to an existing file**, add a horizontal rule (`---`) between entries.
+
+## Multiple Sessions
+
+When saving multiple sessions at once (e.g., before a restart), create one file per project or append all entries to a single daily file — whichever the user prefers. Ask if unclear.
+
+The value is having a single place to scan and remember what was in flight across all your terminals.

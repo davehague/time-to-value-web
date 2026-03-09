@@ -1,0 +1,178 @@
+---
+name: daily-context-builder
+description: "Generate a unified daily report by pulling from multiple data sources — notes, tasks, time tracking — and synthesising them into a single context document."
+---
+
+# Daily Context Builder
+
+Pull data from multiple sources and synthesise them into a single daily report. The pattern works regardless of which specific tools you use.
+
+## Configuration
+
+**Define your data sources below.** Replace these examples with your actual tools and how to query them.
+
+```
+DATA_SOURCES:
+  notes:
+    tool: "Obsidian / Apple Notes / Notion / etc."
+    query_method: "Read files from ~/notes/daily/ or use MCP tool"
+    date_format: "YYYY-MM-DD.md"
+
+  tasks:
+    tool: "Todoist / Linear / Things / Apple Reminders / etc."
+    query_method: "Use MCP tool or CLI to fetch today's tasks"
+    completed_filter: "completed today"
+    pending_filter: "due today or overdue"
+
+  time_tracking:
+    tool: "Toggl / Clockify / Harvest / none"
+    query_method: "Use API or CLI to fetch today's time entries"
+    enabled: true  # set to false if you don't track time
+```
+
+**Output location:**
+
+```
+OUTPUT_DIR: ~/notes/daily-summaries
+```
+
+## When to Use
+
+- End of day to capture what happened
+- Start of day to review yesterday and plan today
+- Weekly review to generate a week's worth of daily reports
+- When you need to report status to someone and want a quick summary
+
+## Process
+
+### Step 1: Determine the Date
+
+Default to today. If the user asks for a different date or date range, adjust accordingly.
+
+```bash
+DATE=$(date +%Y-%m-%d)
+```
+
+### Step 2: Pull Data from Each Source
+
+For each configured data source, gather the day's data.
+
+**Notes:**
+- Read the daily note file for the target date
+- Extract key points, decisions, meeting notes, ideas
+- If no daily note exists, note this in the report
+
+**Tasks:**
+- Fetch tasks completed on the target date
+- Fetch tasks that were due but not completed
+- Fetch tasks created on the target date
+- Note any tasks that were moved/rescheduled
+
+**Time Tracking (if enabled):**
+- Fetch time entries for the target date
+- Calculate total tracked time
+- Group by project or category
+- Note any gaps in tracking
+
+### Step 3: Cross-Reference
+
+Look for connections between sources:
+- Tasks that were completed but have no corresponding time entry
+- Time tracked on items that aren't in the task list
+- Notes about decisions that relate to specific tasks
+- Patterns: what took longer than expected, what was unplanned
+
+### Step 4: Synthesise
+
+**Important: Synthesise, don't concatenate.** The value of this skill is combining data from multiple sources into a coherent narrative, not just listing three separate data dumps.
+
+### Step 5: Write the Report
+
+## Output Format
+
+```markdown
+# Daily Summary — [Date]
+
+## Quick Stats
+- **Tasks completed:** [count]
+- **Tasks pending/overdue:** [count]
+- **Time tracked:** [total hours] (if time tracking enabled)
+- **Unplanned work:** [count or description]
+
+## Overview
+[2-3 sentence narrative of how the day went. What was the main focus? Any unexpected shifts?]
+
+## Key Takeaways
+- [Most important thing that happened or was decided]
+- [Second most important]
+- [Third if applicable]
+
+## Completed Tasks
+- [x] [Task description] — [time spent if tracked] — [project/category]
+- [x] [Task description] — [time spent if tracked] — [project/category]
+
+## In Progress
+- [ ] [Task description] — [status note]
+- [ ] [Task description] — [status note]
+
+## Time Breakdown (if time tracking enabled)
+| Project/Category | Time | Notes |
+|-----------------|------|-------|
+| [Project A] | [hours] | [what was done] |
+| [Project B] | [hours] | [what was done] |
+| **Total** | **[hours]** | |
+
+## Action Items for Tomorrow
+- [ ] [Specific next step, carried over or new]
+- [ ] [Specific next step]
+
+## Notes & Decisions
+[Any notable decisions, ideas, or context from the day's notes that don't fit above]
+```
+
+## Edge Cases
+
+- **Missing data source**: If a source is unavailable (e.g., API is down, file doesn't exist), note the gap in the report and continue with available sources. Don't fail the entire report because one source is missing.
+- **No data for the date**: If no data exists from any source, produce a minimal report noting the absence rather than an empty file.
+- **Weekend/day off**: If no tasks or time entries exist, that's probably intentional. Note it and keep the report short.
+- **Multiple time zones**: Use the user's local timezone consistently. Don't mix UTC and local time.
+- **Partial data**: If time tracking shows 3 hours but 8 tasks were completed, note the tracking gap rather than ignoring it.
+
+## Weekly Roll-Up
+
+If asked for a weekly summary, generate individual daily reports first, then synthesise:
+
+```markdown
+# Week Summary — [Start Date] to [End Date]
+
+## Week at a Glance
+- **Total tasks completed:** [sum]
+- **Total time tracked:** [sum hours]
+- **Most productive day:** [day]
+- **Main themes:** [what dominated the week]
+
+## Day-by-Day
+[Brief 2-3 line summary per day]
+
+## Patterns
+- [What you spent the most time on]
+- [Tasks that carried over multiple days]
+- [Unplanned work that emerged]
+
+## Next Week
+- [ ] [Carry-over items]
+- [ ] [Planned priorities]
+```
+
+## Adapting to Your Stack
+
+The specific tools don't matter — the pattern does. Here are some common stacks:
+
+| Component | Options |
+|-----------|---------|
+| Notes | Obsidian, Notion, Apple Notes, Bear, plain markdown files |
+| Tasks | Todoist, Linear, Things, Asana, GitHub Issues, plain text |
+| Time tracking | Toggl, Clockify, Harvest, none |
+| Output | Same notes tool, separate folder, Slack message |
+
+Update the `DATA_SOURCES` configuration with your tools and their query methods. The synthesis logic stays the same regardless of where the data comes from.

@@ -1,0 +1,80 @@
+---
+name: dual-ai-code-review
+description: "Get a second AI opinion on code changes. Runs a second model alongside Claude Code's review for independent verification before merging."
+---
+
+# Dual AI Code Review
+
+Get a second AI opinion on Claude Code's work using another AI model. Independent verification before merging.
+
+## When to Use
+
+- After Claude Code finishes implementing a feature or fix
+- Before merging a PR
+- When you want a structured code review from a different model
+
+## How It Works
+
+1. Gathers the git diff of recent changes
+2. Sends the diff to a second AI model for structured review
+3. If a PR exists, optionally requests automated PR review
+4. Presents findings for Claude Code to address
+
+## Process
+
+### Step 1: Determine the Diff Range
+
+Ask the user what to review:
+- **Uncommitted changes**: `git diff` + `git diff --staged`
+- **Last N commits**: `git diff HEAD~N..HEAD`
+- **Branch diff**: `git diff main..HEAD`
+- **Specific PR**: `gh pr diff <number>`
+
+### Step 2: Run Second Model Review
+
+Send the diff to your second model with a structured review prompt:
+
+For GitHub Copilot CLI:
+```bash
+git diff <range> | gh copilot explain "Review this code diff for: bugs, security issues, performance problems, code quality, and missing tests. Format as Critical/Important/Minor issues."
+```
+
+For other tools, adapt accordingly.
+
+### Step 3: Request Automated PR Review (Optional)
+
+If there's an open PR and you're using GitHub Copilot:
+```bash
+PR_NUM=$(gh pr view --json number -q .number 2>/dev/null)
+if [ -n "$PR_NUM" ]; then
+  gh pr edit "$PR_NUM" --add-reviewer Copilot
+fi
+```
+
+### Step 4: Present Findings
+
+Show the user:
+1. The second model's review output
+2. Whether automated PR review was requested
+3. Ask if Claude Code should address any findings
+
+### Step 5: Fix Issues (Optional)
+
+If the user wants to address findings, work through them:
+- Critical issues first
+- Then Important
+- Then Minor
+
+## Supported Second Models
+
+| Tool | Best For | Notes |
+|------|----------|-------|
+| GitHub Copilot CLI | Quick code explanations | Requires Copilot subscription |
+| OpenAI API | Detailed code review | Requires API key |
+| Local model (Ollama) | Privacy-sensitive code | Free, runs locally |
+
+## Setup
+
+1. Install your preferred second model CLI tool
+2. Configure authentication
+3. Adapt the review command in Step 2 to match your tool

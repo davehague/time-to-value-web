@@ -1,0 +1,139 @@
+---
+name: web-to-md
+description: Use when user wants to fetch a webpage as markdown, scrape a URL, or get content from a website. This is the default skill for all web-to-markdown tasks. Tries a free service first, falls back to a paid one for JS-heavy sites.
+---
+
+# Web to Markdown - Smart Website Fetcher
+
+Fetch any URL as clean markdown. Tries the free defuddle.md service first, automatically falls back to webcrawlerapi (paid, JS-capable) when content is insufficient.
+
+## When to Use This Skill
+
+Use when you need to fetch a webpage and get its content as markdown. This is the **default skill for all web-to-markdown tasks** -- it handles the routing automatically.
+
+## How It Works
+
+1. Fetches URL via defuddle.md (free, ~1-2 sec)
+2. Strips YAML frontmatter, measures body content
+3. If body > 500 bytes -> returns defuddle.md result (done)
+4. If body <= 500 bytes -> falls back to webcrawlerapi (paid, ~15-30 sec)
+
+## Setup
+
+### Option 1: Using the fetch script (recommended)
+
+Create a shell script (e.g., `~/.claude/skills/web-to-md/fetch.sh`) with this content:
+
+```bash
+#!/usr/bin/env bash
+# web-to-md: Fetch any URL as clean markdown.
+# Uses defuddle.md (free) first, falls back to webcrawlerapi (paid) if insufficient content.
+#
+# Usage: bash fetch.sh <url>
+# Output: markdown to stdout, status messages to stderr
+
+set -euo pipefail
+
+MIN_BODY_BYTES=500
+DEFUDDLE_BASE="https://defuddle.md"
+# Set this to the path of your webcrawlerapi fetch script, or remove the fallback
+WEBCRAWLER_SCRIPT="YOUR_PATH/webcrawlerapi/fetch.py"
+
+url="${1:-}"
+if [[ -z "$url" ]]; then
+  echo "Usage: bash fetch.sh <url>" >&2
+  exit 1
+fi
+
+# Normalize URL: ensure it has a scheme for defuddle
+defuddle_url="$url"
+if [[ ! "$defuddle_url" =~ ^https?:// ]]; then
+  defuddle_url="https://$defuddle_url"
+fi
+
+# Step 1: Try defuddle.md
+echo "[web-to-md] Trying defuddle.md..." >&2
+defuddle_result=$(curl -sL --max-time 15 "${DEFUDDLE_BASE}/${defuddle_url}" 2>/dev/null) || defuddle_result=""
+
+# Step 2: Check content quality - strip YAML frontmatter and measure body
+if [[ -n "$defuddle_result" ]]; then
+  body=$(echo "$defuddle_result" | awk '
+    BEGIN { in_front=0; front_done=0 }
+    /^---\s*$/ {
+      if (!front_done) {
+        if (in_front) { front_done=1; next }
+        else { in_front=1; next }
+      }
+    }
+    front_done { print }
+  ')
+  body_bytes=$(echo "$body" | tr -d '[:space:]' | wc -c | tr -d ' ')
+
+  if [[ "$body_bytes" -gt "$MIN_BODY_BYTES" ]]; then
+    echo "[web-to-md] defuddle.md returned ${body_bytes} bytes of content. Using it." >&2
+    echo "$defuddle_result"
+    exit 0
+  else
+    echo "[web-to-md] defuddle.md returned only ${body_bytes} bytes (threshold: ${MIN_BODY_BYTES}). Falling back..." >&2
+  fi
+else
+  echo "[web-to-md] defuddle.md returned empty response. Falling back..." >&2
+fi
+
+# Step 3: Fallback to webcrawlerapi
+echo "[web-to-md] Trying webcrawlerapi..." >&2
+if [[ ! -f "$WEBCRAWLER_SCRIPT" ]]; then
+  echo "[web-to-md] Error: webcrawlerapi script not found at $WEBCRAWLER_SCRIPT" >&2
+  echo "[web-to-md] To use the paid fallback, set up webcrawlerapi and update WEBCRAWLER_SCRIPT path." >&2
+  echo "[web-to-md] Returning defuddle.md result (may be incomplete)." >&2
+  echo "$defuddle_result"
+  exit 1
+fi
+
+python3 "$WEBCRAWLER_SCRIPT" "$url"
+```
+
+Make it executable: `chmod +x ~/.claude/skills/web-to-md/fetch.sh`
+
+### Option 2: Without the paid fallback
+
+If you only want the free tier, you can skip the webcrawlerapi setup entirely. The script will use defuddle.md for everything and warn you when content seems insufficient.
+
+### Setting up the paid fallback (optional)
+
+[WebcrawlerAPI](https://webcrawlerapi.com) is a pay-per-use service (credits don't expire). To set it up:
+
+1. Sign up and get an API key
+2. Create a Python script that calls their API with your key
+3. Update `WEBCRAWLER_SCRIPT` in fetch.sh to point to it
+
+## Usage
+
+```bash
+bash ~/.claude/skills/web-to-md/fetch.sh "URL_HERE"
+```
+
+### Examples
+
+```bash
+# Blog post (will use defuddle.md - free)
+bash ~/.claude/skills/web-to-md/fetch.sh "https://example.com/blog-post"
+
+# Meetup events page (will auto-fallback to webcrawlerapi if configured)
+bash ~/.claude/skills/web-to-md/fetch.sh "https://www.meetup.com/some-group/events/"
+```
+
+## When Each Backend Gets Used
+
+| Site type | Backend used | Cost |
+|-----------|-------------|------|
+| Blogs, articles, docs, wikis | defuddle.md | Free |
+| JS-rendered SPAs (Meetup, dashboards) | webcrawlerapi | Paid |
+| Cloudflare-protected sites | webcrawlerapi | Paid |
+| Booking calendars, dynamic grids | webcrawlerapi | Paid |
+
+## Output
+
+- Markdown to stdout, status messages to stderr
+- defuddle.md results include YAML frontmatter (title, source, domain, word_count)
+- webcrawlerapi results are raw markdown (may include sidebar/footer noise)

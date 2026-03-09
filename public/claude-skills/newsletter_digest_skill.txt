@@ -1,0 +1,148 @@
+---
+name: newsletter-digest
+description: "Generate a personalised newsletter digest by searching your email, cross-referencing against your personal context, and synthesising only what matters to you."
+---
+
+# Personalised Newsletter Digest
+
+Cut through newsletter overload by generating a digest that's filtered and prioritised based on your personal context — your projects, goals, and interests.
+
+## Configuration
+
+**Set your personal context file path below:**
+
+```
+CONTEXT_FILE: ~/notes/personal-context.md
+```
+
+This file should contain your current projects, goals, interests, and priorities. The more specific it is, the better the digest will be tailored to you.
+
+**Example personal context file:**
+
+```markdown
+# Personal Context
+
+## Current Projects
+- Building a SaaS product for [domain] using [tech stack]
+- Learning [topic] for professional development
+
+## Professional Interests
+- [List specific interests, e.g., "AI agents in production", "developer tooling"]
+- [Areas you're actively working in]
+
+## Goals This Quarter
+- [Specific goals that newsletter content should be filtered against]
+
+## Topics I Can Skip
+- [Things you don't need to hear about, e.g., "crypto", "Web3"]
+```
+
+**Email search tool:** This skill requires access to your email. Configure your preferred email search tool (Gmail MCP, email CLI, etc.) and adapt the search commands in Step 2 below.
+
+## When to Use
+
+- Weekly or bi-weekly to process accumulated newsletters
+- When your inbox has 20+ unread newsletters and you need to triage
+- When you want a single document summarising what matters across all your subscriptions
+
+## Process
+
+### Step 1: Load Personal Context
+
+Read the personal context file:
+```
+Read $CONTEXT_FILE
+```
+
+Use this context to filter and prioritise all newsletter content. Every piece of information should be evaluated against: "Does this matter given what this person is working on and cares about?"
+
+### Step 2: Search for Newsletters
+
+Search your email for recent newsletters. Adapt these commands to your email tool:
+
+```
+Search for emails:
+- From the last 7 days (or since last digest)
+- That match newsletter sender patterns
+- Unread preferred, but include read if relevant
+```
+
+**Newsletter identification heuristics:**
+- Emails with "unsubscribe" links
+- Known newsletter sender patterns (Substack, Beehiiv, ConvertKit, etc.)
+- Recurring senders with consistent subject line patterns
+- Community digest emails
+
+### Step 3: Triage
+
+From the search results, categorise each newsletter:
+- **Read in full**: Likely relevant based on sender and subject line
+- **Scan**: Might be relevant, worth a quick look
+- **Skip**: Not relevant to current context
+
+### Step 4: Read and Extract
+
+For each newsletter marked "Read in full" or "Scan":
+1. Read the full email content
+2. Extract key points, announcements, insights, links
+3. Tag each extract with relevance to the user's context
+
+### Step 5: Synthesise by Theme
+
+Group extracts by theme, not by source. Cross-reference across newsletters.
+
+**Do NOT** just summarise each newsletter sequentially. Instead:
+- Identify themes that appear across multiple newsletters
+- Group related information together regardless of source
+- Note when multiple sources agree or disagree on a trend
+
+### Step 6: Write the Digest
+
+## Output Format
+
+```markdown
+# Newsletter Digest — [Date Range]
+
+## TL;DR
+[3-5 bullet points of the most important things across all newsletters]
+
+## [Theme 1 Title]
+[Synthesised content across sources]
+
+**Why this matters to you:** [Specific connection to user's context — their projects, goals, or interests]
+
+**Sources:** [Which newsletters covered this]
+
+## [Theme 2 Title]
+[Synthesised content across sources]
+
+**Why this matters to you:** [Specific connection to user's context]
+
+**Sources:** [Which newsletters covered this]
+
+## [Theme 3 Title]
+...
+
+## Quick Hits
+- [Interesting but minor items, one line each, with source]
+- [Links worth bookmarking]
+
+## Skipped
+[List of newsletters that were skipped and a one-line reason why — so the user can spot-check the triage]
+```
+
+## Writing Rules
+
+1. **Synthesise, don't summarise.** "Three newsletters mentioned X" is better than three separate summaries of X.
+2. **Every theme section needs "Why this matters to you."** This is the personalisation layer. Connect it to their specific projects, goals, or interests from the context file.
+3. **Be opinionated.** "This is worth watching because..." or "You can probably ignore this because..." — the user wants a filter, not a mirror.
+4. **Include specific numbers.** "Adoption grew 40% year-over-year" beats "adoption is growing."
+5. **Link to originals.** Include URLs when available so the user can go deeper on anything that catches their eye.
+6. **Note disagreements.** When two sources say different things about the same topic, flag it. That's often where the interesting insight lives.
+
+## Edge Cases
+
+- **No newsletters found**: Report that no newsletters were found in the date range. Suggest expanding the search window.
+- **All newsletters irrelevant**: Still produce the "Skipped" section so the user can verify the triage was correct.
+- **Very long newsletters**: Focus on the sections most relevant to the user's context. Don't try to capture everything.
+- **Paywalled content**: Note when content appears truncated. Include what's visible.

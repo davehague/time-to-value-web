@@ -1,0 +1,219 @@
+---
+name: scheduled-jobs
+description: Use when user asks about scheduled jobs, cron jobs, automated tasks, or wants to create/list/modify/delete scheduled tasks on this Mac. Also triggers on "what runs on my computer", "schedule this script", "add a nightly job", "list my jobs".
+---
+
+# Scheduled Jobs Manager
+
+**Note:** This skill is macOS-only. It uses launchd (Launch Agents), which is specific to macOS.
+
+## Overview
+
+All scheduled jobs on this Mac use **macOS launchd** (Launch Agents). We do NOT use cron -- it silently drops missed jobs when the Mac is asleep. Launchd retries missed jobs when the Mac wakes.
+
+**Naming convention:** `com.yourname.<job-name>`
+**Plist location:** `~/Library/LaunchAgents/com.yourname.*.plist`
+**Logs:** `YOUR_LOG_DIR/<job-name>.log`
+
+## Configuration
+
+Before using this skill, set your preferences:
+
+```
+# Replace these with your values
+LABEL_PREFIX: com.yourname          # e.g., com.jsmith, com.mycompany
+LOG_DIR: ~/logs/scheduled-jobs      # Where job logs are written
+WRAPPER_SCRIPT: (optional)          # Path to a wrapper script for logging/notifications
+```
+
+If you use a wrapper script, it should handle PATH setup, logging, and optionally notifications (e.g., Slack alerts on failure). If you don't have a wrapper, jobs can call scripts directly.
+
+## Listing Jobs
+
+```bash
+# List plist files
+ls ~/Library/LaunchAgents/com.yourname.*.plist
+
+# Show loaded status
+launchctl list | grep yourname
+
+# Check recent log output for a job
+tail -20 YOUR_LOG_DIR/<job-name>.log
+```
+
+## Creating a New Job
+
+### 1. Create the plist
+
+File: `~/Library/LaunchAgents/com.yourname.<job-name>.plist`
+
+Template (without wrapper):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.yourname.<job-name></string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/path/to/interpreter</string>
+        <string>/path/to/script</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>YOUR_LOG_DIR/<job-name>.stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>YOUR_LOG_DIR/<job-name>.stderr.log</string>
+</dict>
+</plist>
+```
+
+Template (with wrapper script):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.yourname.<job-name></string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>YOUR_WRAPPER_SCRIPT_PATH</string>
+        <string><job-name></string>
+        <!-- actual command and args below -->
+        <string>/path/to/interpreter</string>
+        <string>/path/to/script</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+</dict>
+</plist>
+```
+
+**Important notes:**
+- Use full absolute paths for everything -- no `~` or `$HOME` in plists
+- For Python scripts, use the real Python binary path (e.g., `/usr/local/bin/python3`), not a shim or symlink
+- For shell scripts, use `/bin/bash`
+
+### 2. Schedule types
+
+**Daily at a specific time:**
+```xml
+<key>StartCalendarInterval</key>
+<dict>
+    <key>Hour</key>
+    <integer>14</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+</dict>
+```
+
+**Multiple times per day** (use an array of dicts):
+```xml
+<key>StartCalendarInterval</key>
+<array>
+    <dict>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <dict>
+        <key>Hour</key>
+        <integer>17</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+</array>
+```
+
+**Every N seconds** (use instead of StartCalendarInterval):
+```xml
+<key>StartInterval</key>
+<integer>3600</integer>
+```
+
+**Specific days of the week** (0=Sunday, 1=Monday, ...):
+```xml
+<key>StartCalendarInterval</key>
+<dict>
+    <key>Weekday</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+</dict>
+```
+
+### 3. Load the job
+
+```bash
+launchctl load ~/Library/LaunchAgents/com.yourname.<job-name>.plist
+```
+
+### 4. Verify it loaded
+
+```bash
+launchctl list | grep <job-name>
+```
+
+## Modifying a Job
+
+```bash
+# Unload first
+launchctl unload ~/Library/LaunchAgents/com.yourname.<job-name>.plist
+
+# Edit the plist...
+
+# Reload
+launchctl load ~/Library/LaunchAgents/com.yourname.<job-name>.plist
+```
+
+## Deleting a Job
+
+```bash
+launchctl unload ~/Library/LaunchAgents/com.yourname.<job-name>.plist
+rm ~/Library/LaunchAgents/com.yourname.<job-name>.plist
+```
+
+## Testing a Job Manually
+
+```bash
+# Run the script directly to test
+/path/to/interpreter /path/to/script [args...]
+
+# Or through the wrapper if you use one
+/bin/bash YOUR_WRAPPER_SCRIPT_PATH <job-name> /path/to/command [args...]
+
+# Check the log
+tail -20 YOUR_LOG_DIR/<job-name>.log
+```
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Using cron | Always use launchd. Cron silently drops missed jobs when Mac sleeps. |
+| Using `~` in plist paths | Use full absolute paths: `/Users/yourname/...` |
+| Using a Python shim in plist | Use the real python binary path, not pyenv/asdf shims |
+| Forgetting to load after creating | Run `launchctl load` on the plist |
+| Editing without unload/reload | Changes don't take effect until reloaded |
+| Inconsistent naming | Stick to `com.yourname.<job-name>` for all jobs |
+
+## Current Jobs
+
+Check live with: `ls ~/Library/LaunchAgents/com.yourname.*.plist`

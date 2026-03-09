@@ -28,6 +28,19 @@ export default defineContentConfig({
         publishedAt: z.string().datetime().optional(),
         updatedAt: z.string().datetime().optional(),
       })
+    }),
+    skills: defineCollection({
+      type: 'page',
+      source: 'skills/**/*.md',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        category: z.string().optional(),
+        tags: z.array(z.string()).optional(),
+        downloadFile: z.string(),
+        publishedAt: z.string().datetime().optional(),
+        updatedAt: z.string().datetime().optional(),
+      })
     })
   }
 })
