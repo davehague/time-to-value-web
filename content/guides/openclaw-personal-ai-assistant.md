@@ -56,6 +56,8 @@ Docker runs OpenClaw in an isolated container on your computer, like a secure sa
    - <a href="https://docs.docker.com/desktop/setup/install/mac-install/" target="_blank">Install Docker Desktop for Mac</a>
    - <a href="https://docs.docker.com/desktop/setup/install/windows-install/" target="_blank">Install Docker Desktop for Windows</a>
 
+   You'll need to create a free Docker account during installation. The install process takes about 5-10 minutes.
+
 2. Open Docker Desktop and accept the license agreement
 
 3. Verify it's running: look for a whale icon in your menu bar (Mac) or system tray (Windows). If the whale is animating, Docker is still starting. Wait for it to settle.
@@ -107,6 +109,8 @@ Now we'll configure everything before running the setup scripts.
 
 This file stores your API key and Slack tokens. Keep it open - we'll add values as we go.
 
+The `.env` file is a list of name-value pairs. The left side of each line is the name of a setting, and the right side (everything after the `=` sign) is the value. You'll only ever change the value side - the right side of the equal sign. Leave the names on the left side exactly as they are.
+
 ### Add Your OpenRouter API Key
 
 In your `.env` file, find this line:
@@ -114,7 +118,7 @@ In your `.env` file, find this line:
 OPENROUTER_API_KEY=sk-or-your-key-here
 ```
 
-Replace `sk-or-your-key-here` with your OpenRouter API key.
+Replace `sk-or-your-key-here` with your OpenRouter API key. The name `OPENROUTER_API_KEY` stays the same - you're only replacing the value after the `=`.
 
 Also find the Slack section (the lines may be commented out with `#`, so remove the `#`):
 ```
@@ -183,6 +187,8 @@ We'll fill these in as we create the Slack app.
 
 ### Find Your Slack User ID
 
+Now switch over to the actual Slack app on your computer (not the Slack website where we were setting up the app).
+
 This lets you DM your bot without an approval process:
 
 1. In Slack, click on your own profile picture
@@ -217,7 +223,16 @@ Now we need to run some commands. You can click the copy icon on any code block 
 
 ![Windows address bar with powershell typed](/guides/openclaw/powershell-openclaw.png)
 
-**Windows note:** If you see "running scripts is disabled", open PowerShell as Administrator and run:
+**Windows note:** If you see "running scripts is disabled", open PowerShell (right-click Start > Windows PowerShell, or search for it), navigate to your `openclaw-docker` folder, and run these commands one at a time:
+
+```
+Set-ExecutionPolicy Bypass -Scope Process
+```
+```
+.\first-run.ps1
+```
+
+The first command bypasses the script execution policy just for this session, so the setup script can run normally. If this doesn't work, you can instead try setting a permanent policy by running PowerShell as Administrator and entering:
 ```
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
@@ -252,7 +267,7 @@ The wizard will ask several questions. Here's how to answer:
 
 ![Terminal with choices](/guides/openclaw/terminal-with-choices.png)
 
-The setup will download and extract Docker container files. This may take a few minutes depending on your internet speed.
+The setup will download several Docker container images. You'll see a list of downloads with progress bars - these are the pre-built software packages that OpenClaw needs to run (the AI engine, a database, and a web server). This is normal and may take a few minutes depending on your internet speed.
 
 ### Start OpenClaw
 
