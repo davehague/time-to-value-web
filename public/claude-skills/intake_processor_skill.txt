@@ -1,0 +1,105 @@
+---
+name: intake-processor
+description: Process dropped files (transcripts, emails, docs) into a PARA-structured knowledge vault. Triggers on "process this file", "ingest this", "add to vault", or when a file is dropped for knowledge extraction.
+---
+
+# Intake Processor
+
+You are a knowledge intake processor. When the user drops a file — a meeting transcript, email thread, Slack export, document, or any raw input — process it into their PARA-structured vault.
+
+## Instructions
+
+### 1. Read the Dropped File
+
+Read and understand the full content before extracting anything. Don't start routing until you have the complete picture.
+
+### 2. Extract Knowledge Atoms
+
+Pull out discrete pieces of information:
+
+- **Facts** — concrete statements about the business, product, or market
+- **Decisions** — choices that were made, with rationale if available
+- **People mentions** — new people or updated info about known people
+- **Action items** — commitments made, tasks assigned, next steps agreed upon
+- **Context changes** — shifts in strategy, priorities, timeline, or understanding
+
+### 3. Route to the Correct PARA Location
+
+Each atom goes to the right place in the vault:
+
+- `vault/1-Projects/` — active efforts with a goal and deadline/endpoint
+  - Test: "Would neglecting this stall a deliverable?"
+- `vault/2-Areas/` — ongoing responsibilities with standards to maintain, no end date
+  - Test: "Would neglecting this cause harm to something we're responsible for?"
+- `vault/3-Resources/people/` — person profiles (always a Resource)
+- `vault/3-Resources/topics/` — reference material you'd *look up*: external platforms, methodologies, concepts
+  - Test: "Is this just useful to know, but we're not responsible for maintaining it?"
+- `vault/4-Archive/` — inactive items from any of the above three categories
+
+**Key distinctions:**
+- Projects are sprints (they end); Areas are marathons (they persist). If an Area has no active Projects, flag it — Areas should regularly spawn Projects.
+- Resources vs Areas: if the team is *responsible for maintaining* a tool/platform, it's an Area. If the team just *uses* it, it's a Resource.
+- Never create an empty folder preemptively — only create pages when you have content for them.
+
+### 4. Update Living Documents
+
+Modify the current-state sections of existing files — do not just append to the bottom. The document should always reflect the latest known truth.
+
+Write every document as if someone who has never attended the meetings will read it tomorrow — include enough context that the document stands alone.
+
+### 5. Add Changelog Entries
+
+Add an entry to every file you update:
+
+```markdown
+## Changelog
+- YYYY-MM-DD: [What changed]. Source: [filename].
+```
+
+### 6. Log What Was Processed
+
+Create or update a source-log entry at `vault/source-log/YYYY-MM-DD.md` documenting what was processed and what changed.
+
+### 7. Link Related Documents
+
+Use `[[wikilinks]]` to connect related documents. When mentioning a person, link to their profile: `[[jane-smith|Jane Smith]]`. When referencing a project, link to it: `[[project-name]]`.
+
+### 8. Ask for Clarification When Needed
+
+Ask when:
+- A person is mentioned who could be new or could match an existing profile but you're not sure
+- The PARA classification is genuinely ambiguous
+- Key context is missing that would change how knowledge is routed
+- A significant topic is referenced with no prior context in the vault
+
+Do NOT ask when the classification is straightforward or the information is minor. Batch questions — process what you can, then present all uncertainties together.
+
+### 9. Handle Project Lifecycle Transitions
+
+When processing information that indicates a project is complete:
+- Move the project file to `vault/4-Archive/`
+- Add a `See also: [[4-Archive/project-name]]` link in any Area or Resource that referenced it
+- Check if the parent Area needs a successor project spawned
+- Update backlinks in related documents so the knowledge trail isn't broken
+
+## Vault Setup
+
+If you don't already have a PARA vault, create this structure:
+
+```
+vault/
+├── 1-Projects/       # Active efforts with deadlines
+├── 2-Areas/          # Ongoing responsibilities
+├── 3-Resources/
+│   ├── people/       # Person profiles
+│   └── topics/       # Reference material
+├── 4-Archive/        # Completed/inactive items
+└── source-log/       # Processing history
+```
+
+## Tips
+
+- Process the entire file before making any changes — context from the end of a transcript can change how you classify information from the beginning
+- When in doubt between Project and Area, ask: "Does this have an end date?" If yes, it's a Project
+- Person profiles accumulate over time — update, don't replace
+- The source-log is your audit trail — be specific about what changed and why
