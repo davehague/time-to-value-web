@@ -1,0 +1,282 @@
+---
+name: playwright-browser
+description: Use when automating browser interactions, taking screenshots, scraping authenticated pages, or running multi-step web workflows. Triggers on "automate browser", "take a screenshot of", "run this in the browser", "Playwright", "browser automation", or when a task requires interacting with a web UI.
+---
+
+# Playwright browser automation
+
+You have two ways to control browsers with Playwright. Pick whichever fits the task.
+
+## Option 1: Playwright MCP server (simpler tasks)
+
+The Playwright MCP server is installed globally. It gives you tools like `browser_navigate`, `browser_click`, `browser_type`, `browser_screenshot`, etc. Good for quick tasks: navigate to a page, click something, take a screenshot.
+
+The MCP tools handle browser lifecycle for you. Just call them directly.
+
+If the MCP server isn't responding, the user can reinstall it:
+```bash
+claude mcp add -s user playwright -- npx @anthropic-ai/mcp-server-playwright@latest
+```
+
+## Option 2: Playwright scripts via CDP (complex automation)
+
+For multi-step workflows, loops, conditional logic, or connecting to an existing browser session where the user is already logged in, write a Node.js script and run it with Bash.
+
+### Connecting to an existing Chrome session
+
+This is the most common pattern -- the user has a browser open and logged into something. You connect to it without disturbing their session.
+
+**Launch a separate Chrome instance** (so you don't kill their tabs):
+```bash
+# macOS
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+  --remote-debugging-port=9223 \
+  --user-data-dir=/tmp/chrome-playwright \
+  --no-first-run \
+  "https://example.com" &
+
+# Linux
+google-chrome \
+  --remote-debugging-port=9223 \
+  --user-data-dir=/tmp/chrome-playwright \
+  --no-first-run \
+  "https://example.com" &
+```
+
+The user logs in manually, then you connect:
+```javascript
+const { chromium } = require('playwright');
+const browser = await chromium.connectOverCDP('http://localhost:9223');
+const page = browser.contexts()[0].pages()[0];
+```
+
+**Verify the connection** before running scripts:
+```bash
+curl -s http://localhost:9223/json/version
+```
+
+### Install Playwright (if needed)
+```bash
+cd /tmp && npm init -y && npm install playwright
+```
+
+## Writing automation scripts
+
+### Typing into contenteditable fields
+
+Many modern web apps use contenteditable divs instead of regular inputs. Playwright's `type()` can be unreliable with these. Use clipboard paste instead:
+
+```javascript
+async function typeText(page, text) {
+  await page.evaluate(async (t) => {
+    await navigator.clipboard.writeText(t);
+  }, text);
+  // Use 'Meta+v' on Mac, 'Control+v' on Linux/Windows
+  const modifier = process.platform === 'darwin' ? 'Meta' : 'Control';
+  await page.keyboard.press(`${modifier}+v`);
+}
+```
+
+### Waiting for dynamic content
+
+When the page is loading or generating content, poll for a visual indicator rather than using fixed waits:
+
+```javascript
+async function waitForCompletion(page, opts = {}) {
+  const {
+    indicator,        // selector that's visible while loading
+    timeoutMs = 120000,
+    settleMs = 3000   // how long indicator must be gone before we trust it
+  } = opts;
+
+  const startTime = Date.now();
+  await page.waitForTimeout(3000); // initial grace period
+
+  while (Date.now() - startTime < timeoutMs) {
+    const isActive = await page.locator(indicator).isVisible().catch(() => false);
+    if (!isActive) {
+      await page.waitForTimeout(settleMs);
+      const stillGone = !(await page.locator(indicator).isVisible().catch(() => false));
+      if (stillGone) return true;
+    }
+    await page.waitForTimeout(2000);
+  }
+  return false; // timed out
+}
+```
+
+### Scrolling screenshots
+
+When content is longer than the viewport, capture it in chunks:
+
+```javascript
+async function scrollingScreenshots(page, container, baseName, dir) {
+  const fs = require('fs');
+  const el = page.locator(container);
+  if (!(await el.count())) {
+    await page.screenshot({ path: `${dir}/${baseName}.png` });
+    return;
+  }
+
+  // Scroll to bottom to force all content to render
+  await el.evaluate(e => e.scrollTop = e.scrollHeight);
+  await page.waitForTimeout(1000);
+
+  const scrollHeight = await el.evaluate(e => e.scrollHeight);
+  const clientHeight = await el.evaluate(e => e.clientHeight);
+
+  // Short content -- just screenshot
+  if (scrollHeight <= clientHeight * 1.5) {
+    await page.screenshot({ path: `${dir}/${baseName}.png` });
+    return;
+  }
+
+  // Scroll back to top
+  await el.evaluate(e => e.scrollTop = 0);
+  await page.waitForTimeout(500);
+
+  const overlap = 80;
+  const step = clientHeight - overlap;
+  let position = 0;
+  let idx = 1;
+  const maxScreenshots = 5;
+
+  while (idx <= maxScreenshots) {
+    await el.evaluate((e, pos) => e.scrollTop = pos, position);
+    await page.waitForTimeout(300);
+
+    const suffix = idx === 1 ? '' : `-${idx}`;
+    await page.screenshot({ path: `${dir}/${baseName}${suffix}.png` });
+
+    position += step;
+    if (position >= scrollHeight - clientHeight) {
+      if (idx < maxScreenshots) {
+        idx++;
+        await el.evaluate(e => e.scrollTop = e.scrollHeight);
+        await page.waitForTimeout(300);
+        await page.screenshot({ path: `${dir}/${baseName}-${idx}.png` });
+      }
+      break;
+    }
+    idx++;
+  }
+}
+```
+
+### Copying text from the page
+
+If the page has a "Copy" button, use it and read from clipboard:
+
+```javascript
+async function copyFromButton(page, buttonSelector) {
+  try {
+    const btn = page.locator(buttonSelector).last();
+    await btn.waitFor({ state: 'visible', timeout: 5000 });
+    await btn.click();
+    await page.waitForTimeout(1000);
+    return await page.evaluate(async () => await navigator.clipboard.readText());
+  } catch (e) {
+    return null;
+  }
+}
+```
+
+### Null safety with component libraries
+
+Many component libraries (Fluent UI, Material UI, etc.) return null from `textContent()` or `getAttribute()`. Always guard:
+
+```javascript
+const text = (await el.textContent().catch(() => '')) || '';
+const aria = (await el.getAttribute('aria-label').catch(() => '')) || '';
+```
+
+### Navigation in SPAs
+
+Single-page apps often keep loading resources indefinitely. Use `domcontentloaded` instead of `networkidle`:
+
+```javascript
+await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+await page.waitForTimeout(5000); // let the SPA render
+```
+
+### Nested iframes
+
+Some apps embed content in iframes. Access them with `frameLocator`:
+
+```javascript
+const frame = page.frameLocator('iframe[src*="target-domain"]');
+await frame.locator('button').click();
+```
+
+Cross-origin iframes may not be accessible. If `frameLocator` can't find elements, the iframe is probably cross-origin and you'll need to work around it (screenshot the parent page, or have the user do that step manually).
+
+### Finding selectors in unfamiliar apps
+
+When you don't know the selectors, dump what's on the page:
+
+```javascript
+// List all visible buttons with their labels
+const buttons = page.locator('button:visible');
+const count = await buttons.count();
+for (let i = 0; i < count; i++) {
+  const btn = buttons.nth(i);
+  const text = (await btn.textContent().catch(() => '')) || '';
+  const aria = (await btn.getAttribute('aria-label').catch(() => '')) || '';
+  const box = await btn.boundingBox();
+  if (box) console.log(`Button: "${text.trim()}" aria="${aria}" y=${Math.round(box.y)}`);
+}
+```
+
+Also try `[role="option"]`, `[role="menuitem"]`, `[role="tab"]` for dropdown/menu items.
+
+## Script template
+
+Here's a starting point for a multi-step automation:
+
+```javascript
+const { chromium } = require('playwright');
+
+const PROMPTS = [
+  { name: 'task-1', prompt: 'Your prompt here' },
+  { name: 'task-2', prompt: 'Another prompt' },
+];
+
+const OUTPUT_DIR = '/tmp/playwright-output';
+
+(async () => {
+  const browser = await chromium.connectOverCDP('http://localhost:9223');
+  const page = browser.contexts()[0].pages()[0];
+  const fs = require('fs');
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
+  for (const { name, prompt } of PROMPTS) {
+    console.log(`Running: ${name}`);
+
+    // Type and send
+    const textbox = page.locator('[role="textbox"]');
+    await textbox.click();
+    await typeText(page, prompt);
+    await page.waitForTimeout(500);
+    await page.keyboard.press('Enter');
+
+    // Wait for response (customize the indicator selector)
+    // await waitForCompletion(page, { indicator: 'button:has-text("Stop")' });
+
+    // Screenshot
+    await page.screenshot({ path: `${OUTPUT_DIR}/${name}.png` });
+
+    await page.waitForTimeout(2000);
+  }
+
+  console.log('Done.');
+})();
+```
+
+## Gotchas
+
+- **Port 9222 vs 9223**: Use 9223 (or any non-default port) to avoid conflicts with other debugging tools. Some apps use 9222 internally.
+- **Mac vs Linux keyboard**: `Meta+v` on Mac, `Control+v` on Linux/Windows. Use `process.platform` to detect.
+- **Timeouts**: `page.goto()` defaults to 30s. For slow-loading apps, set `timeout: 60000`.
+- **Multiple pages**: `browser.contexts()[0].pages()` gives you all open tabs. `pages()[0]` is usually the active one, but check if the user has multiple tabs open.
+- **Clipboard permissions**: CDP connections inherit the browser's permissions. If clipboard access fails, the user may need to grant permission to the site first.
+- **The Chrome instance persists**: The user-data-dir at `/tmp/chrome-playwright` keeps cookies and sessions until reboot. Good for staying logged in across script runs.
