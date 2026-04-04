@@ -173,3 +173,5 @@ Create `overview.md` and a doc per major feature area. These don't need to be co
 ## Try It and Let Me Know
 
 This pattern has changed how I think about documentation. It went from a post-shipping chore to something that happens automatically as part of building. If you try it, I'd love to hear how it works for your setup. Connect with me on [LinkedIn](https://www.linkedin.com/in/david-hague-developer/).
+
+If you're using Obsidian as your vault and want to go deeper on organizing it for multi-client consulting work, see [Managing a PARA Vault with the Obsidian CLI](/guides/para-vault-obsidian-cli) — it covers client subfolders, the Projects vs Areas distinction, and using Obsidian's new CLI for safe moves and renames.

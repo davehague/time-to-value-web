@@ -23,11 +23,11 @@ When you drop a file — a transcript, email thread, Slack export, PDF, or raw n
 
 2. **Extract knowledge atoms** — discrete pieces of information: facts, decisions, people mentions, action items, and context changes (shifts in strategy, priorities, or timeline).
 
-3. **Route each atom to the correct PARA location:**
-   - **Projects** — active efforts with a goal and deadline. "Would neglecting this stall a deliverable?"
-   - **Areas** — ongoing responsibilities with standards to maintain. "Would neglecting this cause harm to something we're responsible for?"
-   - **Resources** — people profiles and reference material you'd look up
-   - **Archive** — completed or inactive items
+3. **Route each atom to the correct PARA location** using two questions in order:
+   - **Q1: Does it have an end date or deliverable?** → **Projects.** Projects are where momentum lives.
+   - **Q2: Would something *suffer* if you ignored it?** → **Areas.** Client relationships, engineering standards, health — if it would suffer, it's your responsibility.
+   - **Neither?** → **Resources.** Just useful knowledge. You'd only be less informed without it.
+   - **Done?** → **Archive.**
 
 4. **Update living documents** rather than appending. Every document should reflect the latest known truth and stand alone for someone reading it cold.
 
@@ -37,17 +37,25 @@ When you drop a file — a transcript, email thread, Slack export, PDF, or raw n
 
 Tiago Forte's PARA method works well here because it maps to how knowledge actually gets used. Projects have deadlines and deliverables. Areas are ongoing responsibilities. Resources are things you look up. Archive is where completed work goes.
 
-The key distinction the skill enforces: Projects are sprints (they end), Areas are marathons (they persist). If an Area has no active Projects, something's probably off — Areas should regularly spawn Projects. This heuristic alone catches a lot of stale knowledge.
+The distinction that matters most: Projects end, Areas don't. A 12-week client SOW is a Project. The engineering standards you maintain for that client are an Area. Same client, different PARA categories. If an Area has no active Projects, something's probably off — Areas should regularly spawn Projects.
+
+The other distinction that trips people up: Areas vs Resources. The test is responsibility, not interest. If you stopped paying attention and something in your life would suffer, it's an Area. If you'd just be less informed, it's a Resource. Client-specific platform docs you maintain are Areas. Generic tech references you consult are Resources.
+
+## Client subfolders
+
+When a client or domain accumulates two or more files in Projects or Areas, the skill groups them into a subfolder. The rule is simple: `acme-voice-agent.md` and `acme-sow1.md` both start with `acme-`, so they go in `1-Projects/acme/`. A standalone file stays flat until a second file with the same prefix shows up.
+
+The skill uses the Obsidian CLI (`obsidian move`, `obsidian rename`) for all file operations inside the vault. This keeps wikilinks intact automatically. See the [PARA Vault Management guide](/guides/para-vault-obsidian-cli) for the full rationale and workflow.
 
 ## What makes this different from "just summarise it"
 
-Three things:
+A summary gives you one blob of text. This skill puts each piece of information where it belongs, connected to everything else you already know about that topic. That's the big difference — routing, not summarizing.
 
-**Routing over summarising.** A summary gives you one blob of text. This skill puts each piece of information where it belongs, connected to everything else you already know about that topic.
+It also updates existing documents rather than creating new ones. Most note-taking produces a graveyard of timestamped entries nobody reads again. This skill modifies the current-state sections of your living docs so they always reflect what's true now, with a changelog at the bottom for the audit trail.
 
-**Living documents over append-only notes.** Most note-taking creates a graveyard of timestamped entries nobody reads again. This skill updates existing documents to reflect current truth, with a changelog for the audit trail.
+It handles transitions — when a project completes, the skill archives it, updates backlinks, and checks whether the parent area needs a new project spun up.
 
-**Lifecycle awareness.** When a project completes, the skill archives it, updates backlinks, and checks whether the parent area needs a new project. Knowledge doesn't just accumulate — it transitions.
+And if you maintain a pipeline dashboard (a table tracking deals, proposals, and warm leads), the skill updates it whenever incoming content changes an opportunity's status. New prospect mentioned in a transcript? It adds a row. Deal closed? It moves the entry. This keeps your pipeline view current without you having to manually maintain it.
 
 ## Setup
 

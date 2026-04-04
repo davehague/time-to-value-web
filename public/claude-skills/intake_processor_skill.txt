@@ -25,21 +25,29 @@ Pull out discrete pieces of information:
 
 ### 3. Route to the Correct PARA Location
 
-Each atom goes to the right place in the vault:
+Ask two questions in order to route each atom:
 
-- `vault/1-Projects/` — active efforts with a goal and deadline/endpoint
-  - Test: "Would neglecting this stall a deliverable?"
-- `vault/2-Areas/` — ongoing responsibilities with standards to maintain, no end date
-  - Test: "Would neglecting this cause harm to something we're responsible for?"
-- `vault/3-Resources/people/` — person profiles (always a Resource)
-- `vault/3-Resources/topics/` — reference material you'd *look up*: external platforms, methodologies, concepts
-  - Test: "Is this just useful to know, but we're not responsible for maintaining it?"
-- `vault/4-Archive/` — inactive items from any of the above three categories
+**Question 1: Does it have an end date or deliverable?**
+Yes → `vault/1-Projects/`. Projects are where momentum lives. "Complete Couch to 5K by August" moves; "get healthy" stalls.
 
-**Key distinctions:**
-- Projects are sprints (they end); Areas are marathons (they persist). If an Area has no active Projects, flag it — Areas should regularly spawn Projects.
-- Resources vs Areas: if the team is *responsible for maintaining* a tool/platform, it's an Area. If the team just *uses* it, it's a Resource.
-- Never create an empty folder preemptively — only create pages when you have content for them.
+**Question 2: Would something *suffer* if you ignored it?**
+Yes → `vault/2-Areas/`. Client relationships, engineering standards, health — if it would suffer, it's your responsibility.
+No → `vault/3-Resources/`. Just useful knowledge with no personal stakes.
+
+**Specific locations:**
+- `vault/1-Projects/` — time-bound efforts with deliverables
+- `vault/2-Areas/` — ongoing responsibilities. Includes client-specific tools/platforms you maintain
+- `vault/3-Resources/people/` — person profiles. People exclusively tied to one engagement go in a client subfolder (e.g., `people/client-name/`). People with cross-cutting relationships stay at the top level.
+- `vault/3-Resources/topics/` — reference material with no personal stakes. Generic tech references, methodologies, third-party docs you just consult
+- `vault/4-Archive/` — done or inactive items from any category
+
+**Common mistakes to avoid:**
+- **Treating projects as areas.** The most frequent error. If it has no end date, it stalls.
+- **Treating areas as resources.** Client-specific platform docs you maintain are Areas. Generic tech references you consult are Resources.
+
+**Client subfolders:** When a client/domain has 2+ files in Projects or Areas, they go in a subfolder (e.g., `1-Projects/client-name/`). A client can have subfolders in both — Projects for time-bound work, Areas for ongoing responsibilities. Personal products are Areas with Projects for specific launches/betas. Route new files into existing subfolders when the prefix matches.
+
+Never create an empty folder preemptively — only create pages when you have content for them.
 
 ### 4. Update Living Documents
 
@@ -60,9 +68,15 @@ Add an entry to every file you update:
 
 Create or update a source-log entry at `vault/source-log/YYYY-MM-DD.md` documenting what was processed and what changed.
 
-### 7. Link Related Documents
+### 7. Link Related Documents and Manage File Operations
 
 Use `[[wikilinks]]` to connect related documents. When mentioning a person, link to their profile: `[[jane-smith|Jane Smith]]`. When referencing a project, link to it: `[[project-name]]`.
+
+**File operations — use the Obsidian CLI** (requires Obsidian Desktop running):
+- **Move:** `obsidian move file="note-name" to="1-Projects/client/" vault="Vault-Name"` — updates all wikilinks automatically.
+- **Rename:** `obsidian rename file="old-name" name="new-name" vault="Vault-Name"` — updates all wikilinks automatically.
+- **Audit:** `obsidian unresolved vault="Vault-Name"` — find broken wikilinks.
+- Do NOT use `mv` for vault files — it bypasses Obsidian's link updater.
 
 ### 8. Ask for Clarification When Needed
 
@@ -81,6 +95,23 @@ When processing information that indicates a project is complete:
 - Add a `See also: [[4-Archive/project-name]]` link in any Area or Resource that referenced it
 - Check if the parent Area needs a successor project spawned
 - Update backlinks in related documents so the knowledge trail isn't broken
+
+### 10. Update the Pipeline Dashboard (if one exists)
+
+If the vault has a pipeline/opportunity tracking document, update it when incoming content affects opportunities:
+
+**Trigger:** Any mention of a deal closing, a proposal being sent, a meeting being scheduled, a prospect going cold, or a new opportunity emerging.
+
+**Actions:**
+- Update the matching row in the pipeline table (Stage, Ball With, Next Action)
+- If a new opportunity appears, add a row
+- If an opportunity closed (won or lost), move it to the appropriate section or note it for archival
+
+**When to create a project file:** If an opportunity gains substance — a concrete deliverable, a proposal, or real scoping work — create a project file in `1-Projects/`. The pipeline row links to it.
+
+**When to leave in person profile:** If the opportunity is still lightweight (first contact, casual conversation), leave the details in the person's profile and link the pipeline row there.
+
+**When to split:** If an opportunity is embedded in a larger engagement doc, extract it into its own project file so it can be tracked independently.
 
 ## Vault Setup
 
